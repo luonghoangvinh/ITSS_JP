@@ -1,0 +1,45 @@
+#Logo{
+    font-size: 24px;
+    font-weight: bold;
+    color: #B51621;
+}
+
+#LogoText{
+    font-size: 12px;
+    padding-bottom: 20px;
+}
+
+
+
+.Sidebar{
+    position:fixed;
+    display: flex;
+
+
+    height: 100vh;
+    width: 200px;
+    background-color: #F7E4E3;
+    padding: 20px;
+    top:0px;
+    left:0px;
+
+    
+    
+}
+.Sidebar ul a {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    color: #645959;
+    text-align: left;
+}
+.Sidebar ul li{
+    display: flex;
+    flex-direction: row;
+}
+.Sidebar ul a:hover {
+    color: #B51621;
+    
+    background-color: #FFFFFF;
+    border-radius: 10px;
+}
