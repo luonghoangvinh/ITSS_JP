@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { Search, Bell, Settings } from 'lucide-react';
+import { Search, Bell, Languages } from 'lucide-react';
 import './LessonChoose.css';
 
 interface Lesson {
@@ -10,7 +10,7 @@ interface Lesson {
   image: string;
   summary: {
     hiragana: string;
-    romanji: string;
+    romaji: string;
   };
   category: string;
 }
@@ -25,7 +25,7 @@ const lessonData: Lesson[] = [
     image: 'https://images.unsplash.com/photo-1559056199-641a0ac8b3f7?w=400&h=250&fit=crop',
     summary: {
       hiragana: 'ベトナムのコーヒー文化',
-      romanji: 'Butsunamu no kohī bunka'
+      romaji: 'Betonamu no kōhī bunka'
     },
     category: 'lifestyle'
   },
@@ -36,56 +36,56 @@ const lessonData: Lesson[] = [
     rating: 4.8,
     image: 'https://images.unsplash.com/photo-1579762715118-a6f1d4b934f1?w=400&h=250&fit=crop',
     summary: {
-      hiragana: '屋台料理でのマナー',
-      romanji: 'Yatai ryōri de no manā'
+      hiragana: '屋台料理のマナー',
+      romaji: 'Yatai ryōri no manā'
     },
     category: 'etiquette'
   },
   {
     id: 3,
     title: '伝統音楽',
-    theme: '音楽',
+    theme: '芸術',
     rating: 5.0,
     image: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400&h=250&fit=crop',
     summary: {
-      hiragana: 'ベトナムの伝統音楽',
-      romanji: 'Butsunamu no dentō ongaku'
+      hiragana: '伝統音楽',
+      romaji: 'Dentō ongaku'
     },
     category: 'music'
   },
   {
     id: 4,
     title: '市場での値切り交渉',
-    theme: '市場',
+    theme: '商業',
     rating: 4.7,
     image: 'https://images.unsplash.com/photo-1488749807830-63789f68bb65?w=400&h=250&fit=crop',
     summary: {
-      hiragana: '市場での交渉スキル',
-      romanji: 'Ichiba de no kōshō sukiru'
+      hiragana: '市場での値切り交渉',
+      romaji: 'Ichiba de no negiri kōshō'
     },
     category: 'market'
   },
   {
     id: 5,
     title: '旧正月（テト）',
-    theme: '行事',
+    theme: '休日',
     rating: 4.9,
     image: 'https://images.unsplash.com/photo-1567521464027-f127ff144326?w=400&h=250&fit=crop',
     summary: {
-      hiragana: 'テトの行事と風習',
-      romanji: 'Teto no gyōji to fūshū'
+      hiragana: 'テト（旧正月）',
+      romaji: 'Teto (Kyūshōgatsu)'
     },
     category: 'festival'
   },
   {
     id: 6,
-    title: 'バイクタオス',
+    title: 'バイクカオス',
     theme: 'モダン',
     rating: 4.6,
     image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=250&fit=crop',
     summary: {
-      hiragana: 'バイクの交通文化',
-      romanji: 'Baiku no kōtsū bunka'
+      hiragana: 'バイクの交通事情',
+      romaji: 'Baiku no kōtsū jijō'
     },
     category: 'modern'
   },
@@ -97,7 +97,7 @@ const lessonData: Lesson[] = [
     image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=250&fit=crop',
     summary: {
       hiragana: 'ベトナム料理の特徴',
-      romanji: 'Butsunamu ryōri no tokuchō'
+      romaji: 'Betonamu ryōri no tokuchō'
     },
     category: 'food'
   },
@@ -109,7 +109,7 @@ const lessonData: Lesson[] = [
     image: 'https://images.unsplash.com/photo-1511895426328-dc8714191300?w=400&h=250&fit=crop',
     summary: {
       hiragana: 'ベトナム家族の価値観',
-      romanji: 'Butsunamu kazoku no kachikan'
+      romaji: 'Betonamu kazoku no kachikan'
     },
     category: 'social'
   },
@@ -121,7 +121,7 @@ const lessonData: Lesson[] = [
     image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=250&fit=crop',
     summary: {
       hiragana: 'アオザイと民族衣装',
-      romanji: 'Aozai to minzoku ishou'
+      romaji: 'Aozai to minzoku ishou'
     },
     category: 'tradition'
   }
@@ -171,7 +171,7 @@ export function LessonChoose() {
             <Bell size={20} />
           </button>
           <button className="icon-button language-btn" title="Language Settings">
-            <Settings size={20} />
+            <Languages size={20} />
           </button>
         </div>
       </div>
@@ -215,7 +215,7 @@ export function LessonChoose() {
               {/* Lesson Summary */}
               <div className="lesson-summary">
                 <p className="summary-hiragana">{lesson.summary.hiragana}</p>
-                <p className="summary-romanji">{lesson.summary.romanji}</p>
+                <p className="summary-romaji">{lesson.summary.romaji}</p>
               </div>
 
               {/* Action Buttons */}

@@ -1,7 +1,7 @@
 import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Mainlayout } from './layouts/Mainlayout'
-import { SignUp } from './components/SignUp'
+import { SignUp } from './pages/Signup/SignUp'
 import { LessonChoose } from './pages/LessonChoose/LessonChoose'
 
 function App() {
