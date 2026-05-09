@@ -25,7 +25,7 @@ export function Sidebar() {
 
                     <li>
                         
-                        <Link to="/Lessons">
+                        <Link to="/lessons">
                         <span className="mt-1">{<GraduationCap size={20}/>}</span>
 
                             <span className="ml-1.5">レッスン</span>
