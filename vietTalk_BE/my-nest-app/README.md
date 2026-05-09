@@ -1,63 +1,25 @@
-# React + Vite
-các thư viện cần cài
+<p align="center">
+  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
+</p>
 
-## thư viện này giúp tạo các route để chuyển đến các trang khác
-npm install react-router-dom
-trong terminal gõ:npm install react-router-dom
-## thư viện này để có icon dùng trong project
-npm install lucide-react
+[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
+[circleci-url]: https://circleci.com/gh/nestjs/nest
 
-
-
-## cách chạy project này (frontend)
-trong terminal trong đường dẫn ....\its_jp_vietTalk>
-
-nhập: npm run dev
-khi dừng chương trình, ấn tổ hợp phím Ctrl + C
-
-# tải tailwind
-https://tailwindcss.com/docs/installation/using-vite
-VÌ đã có khởi tạo project rồi nên bỏ qua bước một
-ở bước 4 thêm "@import "tailwindcss";" và file
-
-
-để sử dụng nestjs,react cần
-Cài Node.js
-Cài Nest CLI
-
-khởi tạo project nestJS cho backend:
-trong terminal gõ và ấn enter: nest new my-nest-app
-sau đó chọn: npm
-
-# khi tải nestjs thì nếu gặp lỗi dòng baseURL ở file tsconfig thì thay dòng đó bằng hai dòng này:
-
-    "types": ["jest", "node"],
-    "rootDir": "./",
-    
-
-### install mongoose
-this <mongoose>library is used to connect with mongodb
-install in Backend "cd Backend"
-npm install @nestjs/mongoose mongoose
-
-tạo file "vite-env.d.ts" thêm declare module "*.css" vào file và luôn mở nó, nếu mà bị lỗi import file .css
-
-
-#### Cách xử lý lỗi cors khi gọi API(gọi không thành công nhưng cũng không báo lỗi)
-trong file vite.config.js
-bên cạnh plugin:....
-thêm dòng này
-
-server: {
-    proxy: {
-      '/api': {
-        target: 'http://localhost:3000',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
-      },
-    },
-  },
-
+  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
+    <p align="center">
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
+<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
+<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
+<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
+<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
+  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
+    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
+  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
+</p>
+  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
+  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
 ## Description
 
