@@ -18,7 +18,7 @@ khi dừng chương trình, ấn tổ hợp phím Ctrl + C
 # tải tailwind
 https://tailwindcss.com/docs/installation/using-vite
 VÌ đã có khởi tạo project rồi nên bỏ qua bước một
-ở bước 4 thêm "@import "tailwindcss";" và file 
+ở bước 4 thêm "@import "tailwindcss";" và file
 
 
 để sử dụng nestjs,react cần
