@@ -2,6 +2,12 @@ import { useState, useMemo } from 'react';
 import { Search, Bell, Languages } from 'lucide-react';
 import './LessonChoose.css';
 
+import cafeImage from '../../assets/cafe.jpg';
+import choImage from '../../assets/cho.jpg';
+import tradfoodImage from '../../assets/tradfood.jpg';
+import tradmusicImage from '../../assets/tradmusic.jpg';
+import tradoutfitImage from '../../assets/tradoutfit.jpg';
+
 interface Lesson {
   id: number;
   title: string;
@@ -22,7 +28,7 @@ const lessonData: Lesson[] = [
     title: 'コーヒー文化',
     theme: 'ライフスタイル',
     rating: 4.9,
-    image: 'https://images.unsplash.com/photo-1559056199-641a0ac8b3f7?w=400&h=250&fit=crop',
+    image: cafeImage,
     summary: {
       hiragana: 'ベトナムのコーヒー文化',
       romaji: 'Betonamu no kōhī bunka'
@@ -46,7 +52,7 @@ const lessonData: Lesson[] = [
     title: '伝統音楽',
     theme: '芸術',
     rating: 5.0,
-    image: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400&h=250&fit=crop',
+    image: tradmusicImage,
     summary: {
       hiragana: '伝統音楽',
       romaji: 'Dentō ongaku'
@@ -58,7 +64,7 @@ const lessonData: Lesson[] = [
     title: '市場での値切り交渉',
     theme: '商業',
     rating: 4.7,
-    image: 'https://images.unsplash.com/photo-1488749807830-63789f68bb65?w=400&h=250&fit=crop',
+    image: choImage,
     summary: {
       hiragana: '市場での値切り交渉',
       romaji: 'Ichiba de no negiri kōshō'
@@ -94,7 +100,7 @@ const lessonData: Lesson[] = [
     title: 'ベトナム料理の基本',
     theme: '食文化',
     rating: 4.8,
-    image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=250&fit=crop',
+    image: tradfoodImage,
     summary: {
       hiragana: 'ベトナム料理の特徴',
       romaji: 'Betonamu ryōri no tokuchō'
@@ -118,7 +124,7 @@ const lessonData: Lesson[] = [
     title: '民族衣装',
     theme: '伝統',
     rating: 4.9,
-    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=250&fit=crop',
+    image: tradoutfitImage,
     summary: {
       hiragana: 'アオザイと民族衣装',
       romaji: 'Aozai to minzoku ishou'
@@ -127,20 +133,29 @@ const lessonData: Lesson[] = [
   }
 ];
 
+const INITIAL_VISIBLE_LESSONS = 6;
+
 export function LessonChoose() {
   const [searchTerm, setSearchTerm] = useState('');
   const [showAll, setShowAll] = useState(false);
+  const [selectedLesson, setSelectedLesson] = useState<number | null>(null);
 
   // Filter lessons based on search term
   const filteredLessons = useMemo(() => {
-    return lessonData.filter(lesson =>
-      lesson.title.toLowerCase().includes(searchTerm.toLowerCase())
+    const lowercasedSearchTerm = searchTerm.toLowerCase();
+    if (!lowercasedSearchTerm) return lessonData;
+    return lessonData.filter(
+      lesson =>
+        lesson.title.toLowerCase().includes(lowercasedSearchTerm) ||
+        lesson.theme.toLowerCase().includes(lowercasedSearchTerm) ||
+        lesson.summary.hiragana.includes(lowercasedSearchTerm) ||
+        lesson.summary.romaji.toLowerCase().includes(lowercasedSearchTerm)
     );
   }, [searchTerm]);
 
   // Determine which lessons to display
-  const displayedLessons = showAll ? filteredLessons : filteredLessons.slice(0, 6);
-  const hasMoreLessons = filteredLessons.length > 6 && !showAll;
+  const displayedLessons = showAll ? filteredLessons : filteredLessons.slice(0, INITIAL_VISIBLE_LESSONS);
+  const hasMoreLessons = filteredLessons.length > INITIAL_VISIBLE_LESSONS && !showAll;
 
   const handleListeningClick = (lessonTitle: string) => {
     console.log(`Listening for: ${lessonTitle}`);
@@ -161,6 +176,7 @@ export function LessonChoose() {
           <input
             type="text"
             placeholder="レッスン、単語、文化を検索..."
+            aria-label="レッスン、単語、文化を検索..."
             className="search-bar"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -181,8 +197,8 @@ export function LessonChoose() {
         {/* Header with Title and See More Button */}
         <div className="lesson-header">
           <div className="lesson-title-section">
-            <h1>ベトナムトークアカデミー</h1>
-            <p>トピックを選択してください</p>
+            <p>ベトナムトークアカデミー</p>
+            <h1>トピックを選択してください</h1>
           </div>
           {hasMoreLessons && (
             <button
@@ -197,7 +213,11 @@ export function LessonChoose() {
         {/* Lessons Grid */}
         <div className="lessons-grid">
           {displayedLessons.map(lesson => (
-            <div key={lesson.id} className="lesson-card">
+            <div
+              key={lesson.id}
+              className={`lesson-card ${selectedLesson === lesson.id ? 'selected' : ''}`}
+              onClick={() => setSelectedLesson(lesson.id)}
+            >
               {/* Lesson Image */}
               <div className="lesson-image">
                 <img src={lesson.image} alt={lesson.title} />
@@ -235,6 +255,21 @@ export function LessonChoose() {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Advanced Lesson Preview */}
+        <div className="advanced-lesson-preview">
+          <div className="advanced-lesson-image">
+            <img src={tradfoodImage} alt="キッチン会話の" />
+          </div>
+          <div className="advanced-lesson-content">
+            <p className="advanced-lesson-subtitle">特別レッスン</p>
+            <h2 className="advanced-lesson-title">キッチン会話の</h2>
+            <p className="advanced-lesson-description">
+              ベトナム家庭の調理現場で使われる専門語彙を深く学びましょう。隠し味の尋ね方や、日本の文化背景を交えながら食事を共にする方法を習得します。
+            </p>
+            <button className="btn-advanced-course">上級コースを始める</button>
+          </div>
         </div>
 
         {/* No Results */}
