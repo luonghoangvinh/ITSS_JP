@@ -1,11 +1,8 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
 import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Mainlayout } from './layouts/Mainlayout'
-import { SignUp } from './components/SignUp'
+import { SignUp } from './pages/Signup/SignUp'
+import { LessonChoose } from './pages/LessonChoose/LessonChoose'
 
 function App() {
 
@@ -15,6 +12,9 @@ function App() {
         <Routes>
           <Route index element={<SignUp/>}/>
           <Route path="/home" element={<Mainlayout/>}/>
+          <Route path="/lessons" element={<Mainlayout/>}>
+            <Route index element={<LessonChoose/>}/>
+          </Route>
         </Routes>
       </BrowserRouter>
     </div>
