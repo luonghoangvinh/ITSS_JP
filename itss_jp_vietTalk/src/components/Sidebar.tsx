@@ -7,16 +7,16 @@ export function Sidebar() {
                 <nav>
                     <Link id="Logo" to="/">VietTalk</Link>
                     <p id="LogoText">ベトナム語を学ぶ</p>
-                    <ul className="w-35">
+                    <ul>
                     <li>
-                        <Link to="/">
-                        <span className="ml-1"><House size={20}/></span>
-                        <span className="ml-1.5">ホーム</span>
+                        <Link to="/" className="gap-1.5">
+                        <span className="mt-1">{<House size={20}/>}</span>
+                        <span className="pt-1.5">ホーム</span>
                         </Link>
                     </li>
                     <li >
                         
-                        <Link to="/Dictionary">
+                        <Link to="/Dictionary" className="gap-1.5">
                             <span className="mt-1">{<BookOpen size={20}/>}</span>
                             
                             <span className="ml-1.5">辞書</span>
@@ -25,20 +25,20 @@ export function Sidebar() {
 
                     <li>
                         
-                        <Link to="/lessons">
+                        <Link to="/lessons" className="gap-1.5">
                         <span className="mt-1">{<GraduationCap size={20}/>}</span>
 
                             <span className="ml-1.5">レッスン</span>
                         </Link>
                     </li>
                     <li>
-                        <Link to="/Settings">
+                        <Link to="/Settings" className="gap-1.5">
                         <span className="mt-1">{<Settings size={20}/>}</span>
                             <span className="ml-1.5">設定</span>
                         </Link>
                     </li>
                     <li>
-                        <Link to="/LevelAssessment">
+                        <Link to="/LevelAssessment" className="gap-1.5">
                             <span className="mt-1">{<Rows3 size={20}/>}</span>
                             <span className="ml-1.5">レベル判定</span>
                         </Link>
