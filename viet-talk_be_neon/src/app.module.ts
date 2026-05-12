@@ -13,6 +13,9 @@ import { Lesson } from './lesson/lesson.entity';
 import { Account } from './accounts/account.entity';
 import { Exam } from './exam/exam.entity';
 import { Question } from './question/question.entity';
+import { SearchHistoryModule } from './search_history/search-history.module';
+import { QuestionModule } from './question/question.module';
+import { ExamModule } from './exam/exam.module';
 
 @Module({
   imports: [
@@ -52,6 +55,12 @@ import { Question } from './question/question.entity';
     AccountsModule,
 
     LessonModule,
+
+    SearchHistoryModule,
+
+    QuestionModule,
+
+    ExamModule,
   ],
   controllers: [AppController],
   providers: [AppService],

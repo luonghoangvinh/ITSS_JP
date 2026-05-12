@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Mail, Lock, User } from 'lucide-react';
 import './SignUp.css';
-import vietTalkLogoImage from '../assets/Viettalkpic.jpg'; // Using the logo image
+import vietTalkLogoImage from "../../assets/Viettalkpic.jpg";
+// Using the logo image
 
 export function SignUp() {
   const [formData, setFormData] = useState({
