@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Mail, Lock, User } from 'lucide-react';
 import './SignUp.css';
 import vietTalkLogoImage from '../assets/Viettalkpic.jpg'; // Using the logo image
@@ -148,7 +148,7 @@ export function SignUp() {
 
             {/* Login Link */}
             <div className="login-link">
-              <p>すでにアカウントをお持ちですか？<a href="/login">ログイン</a></p>
+              <p>すでにアカウントをお持ちですか？<Link to="/login">ログイン</Link></p>
             </div>
           </form>
         </div>

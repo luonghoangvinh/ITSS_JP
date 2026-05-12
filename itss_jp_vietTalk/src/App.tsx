@@ -6,6 +6,7 @@ import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Mainlayout } from './layouts/Mainlayout'
 import { SignUp } from './components/SignUp'
+import { LogIn } from './components/LogIn'
 
 function App() {
 
@@ -13,8 +14,10 @@ function App() {
     <div className="h-full w-full">
       <BrowserRouter>
         <Routes>
-          <Route index element={<SignUp/>}/>
-          <Route path="/home" element={<Mainlayout/>}/>
+          <Route index element={<LogIn />} />
+          <Route path="/login" element={<LogIn />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/home" element={<Mainlayout />} />
         </Routes>
       </BrowserRouter>
     </div>
