@@ -1,8 +1,7 @@
 import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Mainlayout } from './layouts/Mainlayout'
-import { SignUp } from './components/SignUp'
-import { LogIn } from './components/LogIn'
+import { LogIn } from './pages/Login/LogIn'
 
 function App() {
 
@@ -12,7 +11,6 @@ function App() {
         <Routes>
           <Route index element={<LogIn />} />
           <Route path="/login" element={<LogIn />} />
-          <Route path="/signup" element={<SignUp />} />
           <Route path="/home" element={<Mainlayout />} />
         </Routes>
       </BrowserRouter>
