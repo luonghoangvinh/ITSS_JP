@@ -8,49 +8,58 @@ import { UpdateAccountDto } from './dto/update-account.dto';
 
 @Injectable()
 export class AccountsService {
-    constructor(
+  constructor(
     @InjectRepository(Account)
-    private accountRepository: Repository<Account>,
-    ) {}
+    private readonly accountRepository: Repository<Account>,
+  ) { }
 
   // CREATE
-    async create(
+  async create(
     createAccountDto: CreateAccountDto,
-    ): Promise<Account> {
+  ): Promise<Account> {
     const account = this.accountRepository.create(
-        createAccountDto,
+      createAccountDto,
     );
 
     return await this.accountRepository.save(account);
-    }
+  }
 
   // READ ALL
-    async findAll(): Promise<Account[]> {
+  async findAll(): Promise<Account[]> {
     return await this.accountRepository.find();
-    }
+  }
 
   // READ ONE
-    async findOne(id: number): Promise<Account | null> {
+  async findOne(id: number): Promise<Account | null> {
     return await this.accountRepository.findOne({
-        where: { id },
+      where: { id },
     });
-    }
+  }
+
+  async findByUsername(userName: string) {
+    return this.accountRepository.findOne({
+      where: {
+        userName,
+      },
+    });
+  }
+
 
   // UPDATE
-    async update(
+  async update(
     id: number,
     updateAccountDto: UpdateAccountDto,
-    ): Promise<Account | null> {
+  ): Promise<Account | null> {
     await this.accountRepository.update(
-        id,
-        updateAccountDto,
+      id,
+      updateAccountDto,
     );
 
     return this.findOne(id);
-    }
+  }
 
   // DELETE
-    async remove(id: number): Promise<void> {
+  async remove(id: number): Promise<void> {
     await this.accountRepository.delete(id);
-    }
+  }
 }

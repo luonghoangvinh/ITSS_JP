@@ -16,6 +16,7 @@ import { Question } from './question/question.entity';
 import { SearchHistoryModule } from './search_history/search-history.module';
 import { QuestionModule } from './question/question.module';
 import { ExamModule } from './exam/exam.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -61,6 +62,8 @@ import { ExamModule } from './exam/exam.module';
     QuestionModule,
 
     ExamModule,
+    
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -6,12 +6,14 @@ import {
     Param,
     Delete,
     Put,
+    UseGuards,
 } from '@nestjs/common';
 
 import { AccountsService } from './accounts.service';
 
 import { CreateAccountDto } from './dto/create-account.dto';
 import { UpdateAccountDto } from './dto/update-account.dto';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('accounts')
 export class AccountsController {
@@ -36,6 +38,7 @@ export class AccountsController {
     }
 
     // READ ONE
+    @UseGuards(JwtAuthGuard)
     @Get(':id')
     findOne(@Param('id') id: string) {
         return this.accountsService.findOne(

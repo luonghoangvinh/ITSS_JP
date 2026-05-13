@@ -23,7 +23,7 @@ export class Account {
     role!: string;
 
     @Column({ nullable: true })
-    introduction!: string;
+    introduction?: string;
 
     @Column({ unique: true })
     gmail!: string;
@@ -32,14 +32,14 @@ export class Account {
     password!: string;
 
     @Column({ nullable: true })
-    image!: string;
+    image?: string;
 
     @Column({
         name: 'last_password_change',
         type: 'timestamp',
         nullable: true,
     })
-    lastPasswordChange!: Date;
+    lastPasswordChange?: Date;
 
     // Relationships
     @OneToMany(() => SearchHistory, (search) => search.account)
