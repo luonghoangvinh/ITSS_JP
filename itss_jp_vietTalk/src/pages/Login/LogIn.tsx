@@ -58,7 +58,7 @@ export function Login() {
       data.access_token,
     );
 
-    navigate('/home');
+    navigate('/Home');
   } catch (error) {
     console.error(error);
 
