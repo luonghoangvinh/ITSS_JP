@@ -7,9 +7,6 @@ import { AuthController } from './auth.controller';
 import { JwtStrategy } from './jwt.strategy';
 
 import { AccountsModule } from '../accounts/accounts.module';
-import { AccountsService } from '../accounts/accounts.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Account } from '../accounts/account.entity';
 
 @Module({
     imports: [
@@ -23,11 +20,10 @@ import { Account } from '../accounts/account.entity';
                 expiresIn: '1d',
             },
         }),
-        TypeOrmModule.forFeature([Account])
     ],
 
     controllers: [AuthController],
 
-    providers: [AuthService, JwtStrategy,AccountsService],
+    providers: [AuthService, JwtStrategy],
 })
 export class AuthModule { }

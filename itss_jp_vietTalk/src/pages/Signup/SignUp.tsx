@@ -25,17 +25,38 @@ export function SignUp() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const response = await fetch('/api/accounts', {
-      method: 'POST',
-      headers:{
-        "Content-Type": 'application/json',
-        },
-      body: JSON.stringify(formData)
-    });
-    if (!response.ok) {
-      throw new Error('Signup failed');
+
+    if (formData.password !== formData.confirmPassword) {
+      alert('パスワードが一致しません。');
+      return;
     }
-    navigate('/home');
+
+    try {
+      const response = await fetch('/api/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userName: formData.userName,
+          gmail: formData.gmail,
+          password: formData.password,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => null);
+        const message = errorData?.message || 'Signup failed';
+        throw new Error(message);
+      }
+
+      const data = await response.json();
+      localStorage.setItem('access_token', data.access_token);
+      navigate('/home');
+    } catch (error: any) {
+      console.error(error);
+      alert(error.message || 'サインアップに失敗しました。');
+    }
   };
 
   return (
@@ -77,7 +98,7 @@ export function SignUp() {
               <div className="input-wrapper">
                 <Mail size={18} className="input-icon" />
                 <input
-                  type="gmail"
+                  type="email"
                   id="gmail"
                   name="gmail"
                   placeholder="example@gmail.com"

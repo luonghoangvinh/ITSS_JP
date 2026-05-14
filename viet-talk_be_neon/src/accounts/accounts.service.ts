@@ -44,6 +44,14 @@ export class AccountsService {
     });
   }
 
+  async findByEmail(gmail: string) {
+    return this.accountRepository.findOne({
+      where: {
+        gmail,
+      },
+    });
+  }
+
 
   // UPDATE
   async update(
