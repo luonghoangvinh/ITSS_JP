@@ -7,8 +7,8 @@ import vietTalkLogoImage from "../../assets/Viettalkpic.jpg";
 
 export function SignUp() {
   const [formData, setFormData] = useState({
-    username: '',
-    email: '',
+    userName: '',
+    gmail: '',
     password: '',
     confirmPassword: '',
   });
@@ -23,10 +23,18 @@ export function SignUp() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle signup logic here
-    console.log('Sign up:', formData);
+    const response = await fetch('/api/accounts', {
+      method: 'POST',
+      headers:{
+        "Content-Type": 'application/json',
+        },
+      body: JSON.stringify(formData)
+    });
+    if (!response.ok) {
+      throw new Error('Signup failed');
+    }
     navigate('/home');
   };
 
@@ -47,15 +55,15 @@ export function SignUp() {
 
             {/* Username Field */}
             <div className="form-group">
-              <label htmlFor="username" className="form-label">ユーザー名</label>
+              <label htmlFor="userName" className="form-label">ユーザー名</label>
               <div className="input-wrapper">
                 <User size={18} className="input-icon" />
                 <input
                   type="text"
-                  id="username"
-                  name="username"
+                  id="userName"
+                  name="userName"
                   placeholder="viet_talker"
-                  value={formData.username}
+                  value={formData.userName}
                   onChange={handleChange}
                   className="form-input"
                   required
@@ -63,17 +71,17 @@ export function SignUp() {
               </div>
             </div>
 
-            {/* Email Field */}
+            {/* gmail Field */}
             <div className="form-group">
-              <label htmlFor="email" className="form-label">メールアドレス</label>
+              <label htmlFor="gmail" className="form-label">メールアドレス</label>
               <div className="input-wrapper">
                 <Mail size={18} className="input-icon" />
                 <input
-                  type="email"
-                  id="email"
-                  name="email"
+                  type="gmail"
+                  id="gmail"
+                  name="gmail"
                   placeholder="example@gmail.com"
-                  value={formData.email}
+                  value={formData.gmail}
                   onChange={handleChange}
                   className="form-input"
                   required
