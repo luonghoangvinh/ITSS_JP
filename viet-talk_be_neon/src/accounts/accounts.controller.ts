@@ -7,6 +7,8 @@ import {
     Delete,
     Put,
     UseGuards,
+    Req,
+    Request,
 } from '@nestjs/common';
 
 import { AccountsService } from './accounts.service';
@@ -38,7 +40,6 @@ export class AccountsController {
     }
 
     // READ ONE
-    @UseGuards(JwtAuthGuard)
     @Get(':id')
     findOne(@Param('id') id: string) {
         return this.accountsService.findOne(

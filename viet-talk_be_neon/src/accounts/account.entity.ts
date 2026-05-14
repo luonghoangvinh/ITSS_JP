@@ -14,7 +14,7 @@ export class Account {
     id!: number;
 
     @Column({ name: 'full_name', nullable: true })
-    fullName!: string;
+    fullName?: string;
 
     @Column({ name: 'user_name', unique: true })
     userName!: string;
