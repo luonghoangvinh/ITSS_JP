@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect } from 'react';
 import { Search, Bell, Languages } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import './LessonChoose.css';
 
 
@@ -25,6 +26,7 @@ export function LessonChoose() {
   const [selectedLesson, setSelectedLesson] = useState<number | null>(null);
   const [lessonData, setLessonData] = useState<Lesson[]>([]);
   const [specialLesson, setSpecialLesson] = useState<Lesson | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchLessons = async () => {
@@ -36,7 +38,16 @@ export function LessonChoose() {
         const data = await response.json();
 
         // Map dữ liệu từ backend sang cấu trúc frontend sử dụng
-        const formattedLessons: Lesson[] = data.map((item: any) => ({
+        const formattedLessons: Lesson[] = data.map((item: {
+          id: number;
+          lessonName?: string;
+          topic?: string;
+          rating?: number | string;
+          image?: string;
+          description?: string;
+          lessonContent?: string;
+          level?: string;
+        }) => ({
           id: item.id,
           title: item.lessonName || '無題', // Tên bài học, DB nếu chứa chữ Nhật sẽ tự render font như cũ
           theme: item.topic || 'トピック',
@@ -80,14 +91,12 @@ export function LessonChoose() {
   const displayedLessons = showAll ? filteredLessons : filteredLessons.slice(0, INITIAL_VISIBLE_LESSONS);
   const hasMoreLessons = filteredLessons.length > INITIAL_VISIBLE_LESSONS && !showAll;
 
-  const handleListeningClick = (lessonTitle: string) => {
-    console.log(`Listening for: ${lessonTitle}`);
-    // Navigate to listening page
+  const handleListeningClick = (lessonId: number) => {
+    navigate(`/home/listening/${lessonId}`);
   };
 
-  const handleShadowingClick = (lessonTitle: string) => {
-    console.log(`Shadowing for: ${lessonTitle}`);
-    // Navigate to shadowing page
+  const handleShadowingClick = (_lessonId: number) => {
+    // TODO: Chuyển đến trang shadowing sau này
   };
 
   return (
@@ -165,13 +174,13 @@ export function LessonChoose() {
               <div className="lesson-buttons">
                 <button
                   className="btn-listening"
-                  onClick={() => handleListeningClick(lesson.title)}
+                  onClick={() => handleListeningClick(lesson.id)}
                 >
                   リスニング
                 </button>
                 <button
                   className="btn-shadowing"
-                  onClick={() => handleShadowingClick(lesson.title)}
+                  onClick={() => handleShadowingClick(lesson.id)}
                 >
                   シャドウイング
                 </button>
