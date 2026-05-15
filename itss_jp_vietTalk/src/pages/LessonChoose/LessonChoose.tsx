@@ -1,12 +1,7 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Search, Bell, Languages } from 'lucide-react';
 import './LessonChoose.css';
 
-import cafeImage from '../../assets/cafe.jpg';
-import choImage from '../../assets/cho.jpg';
-import tradfoodImage from '../../assets/tradfood.jpg';
-import tradmusicImage from '../../assets/tradmusic.jpg';
-import tradoutfitImage from '../../assets/tradoutfit.jpg';
 
 interface Lesson {
   id: number;
@@ -21,124 +16,52 @@ interface Lesson {
   category: string;
 }
 
-// Sample lesson data
-const lessonData: Lesson[] = [
-  {
-    id: 1,
-    title: 'コーヒー文化',
-    theme: 'ライフスタイル',
-    rating: 4.9,
-    image: cafeImage,
-    summary: {
-      hiragana: 'ベトナムのコーヒー文化',
-      romaji: 'Betonamu no kōhī bunka'
-    },
-    category: 'lifestyle'
-  },
-  {
-    id: 2,
-    title: '屋台料理のマナー',
-    theme: 'エチケット',
-    rating: 4.8,
-    image: 'https://images.unsplash.com/photo-1579762715118-a6f1d4b934f1?w=400&h=250&fit=crop',
-    summary: {
-      hiragana: '屋台料理のマナー',
-      romaji: 'Yatai ryōri no manā'
-    },
-    category: 'etiquette'
-  },
-  {
-    id: 3,
-    title: '伝統音楽',
-    theme: '芸術',
-    rating: 5.0,
-    image: tradmusicImage,
-    summary: {
-      hiragana: '伝統音楽',
-      romaji: 'Dentō ongaku'
-    },
-    category: 'music'
-  },
-  {
-    id: 4,
-    title: '市場での値切り交渉',
-    theme: '商業',
-    rating: 4.7,
-    image: choImage,
-    summary: {
-      hiragana: '市場での値切り交渉',
-      romaji: 'Ichiba de no negiri kōshō'
-    },
-    category: 'market'
-  },
-  {
-    id: 5,
-    title: '旧正月（テト）',
-    theme: '休日',
-    rating: 4.9,
-    image: 'https://images.unsplash.com/photo-1567521464027-f127ff144326?w=400&h=250&fit=crop',
-    summary: {
-      hiragana: 'テト（旧正月）',
-      romaji: 'Teto (Kyūshōgatsu)'
-    },
-    category: 'festival'
-  },
-  {
-    id: 6,
-    title: 'バイクカオス',
-    theme: 'モダン',
-    rating: 4.6,
-    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=250&fit=crop',
-    summary: {
-      hiragana: 'バイクの交通事情',
-      romaji: 'Baiku no kōtsū jijō'
-    },
-    category: 'modern'
-  },
-  {
-    id: 7,
-    title: 'ベトナム料理の基本',
-    theme: '食文化',
-    rating: 4.8,
-    image: tradfoodImage,
-    summary: {
-      hiragana: 'ベトナム料理の特徴',
-      romaji: 'Betonamu ryōri no tokuchō'
-    },
-    category: 'food'
-  },
-  {
-    id: 8,
-    title: '家族文化',
-    theme: '社会',
-    rating: 4.7,
-    image: 'https://images.unsplash.com/photo-1511895426328-dc8714191300?w=400&h=250&fit=crop',
-    summary: {
-      hiragana: 'ベトナム家族の価値観',
-      romaji: 'Betonamu kazoku no kachikan'
-    },
-    category: 'social'
-  },
-  {
-    id: 9,
-    title: '民族衣装',
-    theme: '伝統',
-    rating: 4.9,
-    image: tradoutfitImage,
-    summary: {
-      hiragana: 'アオザイと民族衣装',
-      romaji: 'Aozai to minzoku ishou'
-    },
-    category: 'tradition'
-  }
-];
-
 const INITIAL_VISIBLE_LESSONS = 6;
+
 
 export function LessonChoose() {
   const [searchTerm, setSearchTerm] = useState('');
   const [showAll, setShowAll] = useState(false);
   const [selectedLesson, setSelectedLesson] = useState<number | null>(null);
+  const [lessonData, setLessonData] = useState<Lesson[]>([]);
+  const [specialLesson, setSpecialLesson] = useState<Lesson | null>(null);
+
+  useEffect(() => {
+    const fetchLessons = async () => {
+      try {
+        const response = await fetch('/api/lessons');
+        if (!response.ok) {
+          throw new Error('Failed to fetch lessons');
+        }
+        const data = await response.json();
+
+        // Map dữ liệu từ backend sang cấu trúc frontend sử dụng
+        const formattedLessons: Lesson[] = data.map((item: any) => ({
+          id: item.id,
+          title: item.lessonName || '無題', // Tên bài học, DB nếu chứa chữ Nhật sẽ tự render font như cũ
+          theme: item.topic || 'トピック',
+          rating: item.rating ? Number(item.rating) : 0, // Đảm bảo rating là số và đối chiếu theo DB
+          image: item.image || '', // Ánh xạ trực tiếp hình ảnh từ database
+          summary: {
+            hiragana: item.description || '', 
+            romaji: item.lessonContent || '' 
+          },
+          category: item.level || 'beginner'
+        }));
+
+        setLessonData(formattedLessons);
+        
+        // Chọn ngẫu nhiên bài học đặc biệt một lần duy nhất sau khi lấy data
+        if (formattedLessons.length > 0) {
+          setSpecialLesson(formattedLessons[Math.floor(Math.random() * formattedLessons.length)]);
+        }
+      } catch (error) {
+        console.error('Error fetching lessons:', error);
+      }
+    };
+
+    fetchLessons();
+  }, []);
 
   // Filter lessons based on search term
   const filteredLessons = useMemo(() => {
@@ -146,12 +69,12 @@ export function LessonChoose() {
     if (!lowercasedSearchTerm) return lessonData;
     return lessonData.filter(
       lesson =>
-        lesson.title.toLowerCase().includes(lowercasedSearchTerm) ||
-        lesson.theme.toLowerCase().includes(lowercasedSearchTerm) ||
-        lesson.summary.hiragana.includes(lowercasedSearchTerm) ||
-        lesson.summary.romaji.toLowerCase().includes(lowercasedSearchTerm)
+        (lesson.title && lesson.title.toLowerCase().includes(lowercasedSearchTerm)) ||
+        (lesson.theme && lesson.theme.toLowerCase().includes(lowercasedSearchTerm)) ||
+        (lesson.summary.hiragana && lesson.summary.hiragana.toLowerCase().includes(lowercasedSearchTerm)) ||
+        (lesson.summary.romaji && lesson.summary.romaji.toLowerCase().includes(lowercasedSearchTerm))
     );
-  }, [searchTerm]);
+  }, [searchTerm, lessonData]);
 
   // Determine which lessons to display
   const displayedLessons = showAll ? filteredLessons : filteredLessons.slice(0, INITIAL_VISIBLE_LESSONS);
@@ -258,19 +181,21 @@ export function LessonChoose() {
         </div>
 
         {/* Advanced Lesson Preview */}
-        <div className="advanced-lesson-preview">
-          <div className="advanced-lesson-image">
-            <img src={tradfoodImage} alt="キッチン会話の" />
+        {specialLesson && (
+          <div className="advanced-lesson-preview">
+            <div className="advanced-lesson-image">
+              <img src={specialLesson.image} alt={specialLesson.title} />
+            </div>
+            <div className="advanced-lesson-content">
+              <p className="advanced-lesson-subtitle">特別レッスン</p>
+              <h2 className="advanced-lesson-title">{specialLesson.title}</h2>
+              <p className="advanced-lesson-description">
+                {specialLesson.summary.hiragana || specialLesson.summary.romaji}
+              </p>
+              <button className="btn-advanced-course">上級コースを始める</button>
+            </div>
           </div>
-          <div className="advanced-lesson-content">
-            <p className="advanced-lesson-subtitle">特別レッスン</p>
-            <h2 className="advanced-lesson-title">キッチン会話の</h2>
-            <p className="advanced-lesson-description">
-              ベトナム家庭の調理現場で使われる専門語彙を深く学びましょう。隠し味の尋ね方や、日本の文化背景を交えながら食事を共にする方法を習得します。
-            </p>
-            <button className="btn-advanced-course">上級コースを始める</button>
-          </div>
-        </div>
+        )}
 
         {/* No Results */}
         {displayedLessons.length === 0 && (
