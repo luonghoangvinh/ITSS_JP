@@ -1,16 +1,13 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Mail, Lock, User } from 'lucide-react';
-import './SignUp.css';
-import vietTalkLogoImage from "../../assets/Viettalkpic.jpg";
-// Using the logo image
+import { Lock, User } from 'lucide-react';
+import './Login.css';
+import vietTalkLogoImage from '../../assets/Viettalkpic.jpg';
 
-export function SignUp() {
+export function Login() {
   const [formData, setFormData] = useState({
-    userName: '',
-    gmail: '',
+    username: '',
     password: '',
-    confirmPassword: '',
   });
 
   const navigate = useNavigate();
@@ -19,51 +16,81 @@ export function SignUp() {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  /*const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const response = await fetch('/api/accounts', {
-      method: 'POST',
-      headers:{
-        "Content-Type": 'application/json',
-        },
-      body: JSON.stringify(formData)
-    });
-    if (!response.ok) {
-      throw new Error('Signup failed');
-    }
+    console.log('Log in:', formData);
     navigate('/home');
-  };
+  };*/
+  const handleSubmit = async (
+  e: React.FormEvent,
+) => {
+  e.preventDefault();
+
+  try {
+    const response = await fetch(
+      '/api/auth/login',
+      {
+        method: 'POST',
+
+        headers: {
+          'Content-Type': 'application/json',
+        },
+
+        body: JSON.stringify(formData),
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error('Login failed');
+    }
+
+    const data = await response.json();
+
+    console.log(data);
+
+    // lưu token
+    localStorage.setItem(
+      'access_token',
+      data.access_token,
+    );
+
+    navigate('/home');
+  } catch (error) {
+    console.error(error);
+
+    alert('ログイン失敗');
+  }
+};
 
   return (
-    <div className="signup-container h-full w-full flex">
-      <div className="signup-left w-3/5">
+    <div className="login-container h-full w-full flex">
+      <div className="login-left">
         <div className="brand-section">
           <h1 className="brand-title">VietTalk</h1>
           <p className="brand-subtitle">VietTalkはベトナムとつながる。</p>
         </div>
-        <img src={vietTalkLogoImage} alt="VietTalk Logo" className="main-visual-image" />
+        <img src={vietTalkLogoImage} alt="VietTalk Hero" className="main-visual-image" />
       </div>
 
-      <div className="signup-right w-2/5 bg-gradient-to-br from-gray-50 to-gray-200 flex justify-center items-center">
-        <div className="form-wrapper w-full max-w-xs">
+      <div className="login-right">
+        <div className="form-wrapper">
           <form onSubmit={handleSubmit} className="form">
-            <h2 className="form-title">新規登録</h2>
+            <h2 className="form-title">おかえりなさい</h2>
 
-            {/* Username Field */}
             <div className="form-group">
-              <label htmlFor="userName" className="form-label">ユーザー名</label>
+              <label htmlFor="username" className="form-label">ユーザー名</label>
               <div className="input-wrapper">
                 <User size={18} className="input-icon" />
                 <input
                   type="text"
-                  id="userName"
-                  name="userName"
+                  id="username"
+                  name="username"
                   placeholder="viet_talker"
-                  value={formData.userName}
+                  value={formData.username}
                   onChange={handleChange}
                   className="form-input"
                   required
@@ -71,25 +98,6 @@ export function SignUp() {
               </div>
             </div>
 
-            {/* gmail Field */}
-            <div className="form-group">
-              <label htmlFor="gmail" className="form-label">メールアドレス</label>
-              <div className="input-wrapper">
-                <Mail size={18} className="input-icon" />
-                <input
-                  type="gmail"
-                  id="gmail"
-                  name="gmail"
-                  placeholder="example@gmail.com"
-                  value={formData.gmail}
-                  onChange={handleChange}
-                  className="form-input"
-                  required
-                />
-              </div>
-            </div>
-
-            {/* Password Field */}
             <div className="form-group">
               <label htmlFor="password" className="form-label">パスワード</label>
               <div className="input-wrapper">
@@ -107,36 +115,19 @@ export function SignUp() {
               </div>
             </div>
 
-            {/* Confirm Password Field */}
-            <div className="form-group">
-              <label htmlFor="confirmPassword" className="form-label">パスワード（確認）</label>
-              <div className="input-wrapper">
-                <Lock size={18} className="input-icon" />
-                <input
-                  type="password"
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  placeholder="••••••••"
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
-                  className="form-input"
-                  required
-                />
-              </div>
-            </div>
-
-            {/* Submit Button */}
             <button type="submit" className="submit-btn">
-              登録
+              ログイン
               <span className="arrow">→</span>
             </button>
 
-            {/* Divider */}
+            <div className="password-help">
+              <a href="/forgot-password">パスワードをお忘れですか？</a>
+            </div>
+
             <div className="divider">
               <span>または</span>
             </div>
 
-            {/* Social Login */}
             <div className="social-login">
               <button type="button" className="social-btn google">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -155,9 +146,8 @@ export function SignUp() {
               </button>
             </div>
 
-            {/* Login Link */}
             <div className="login-link">
-              <p>すでにアカウントをお持ちですか？<Link to="/login">ログイン</Link></p>
+              <p>アカウントをお持ちでないですか？<Link to="/signup">今すぐ登録</Link></p>
             </div>
           </form>
         </div>
@@ -165,3 +155,4 @@ export function SignUp() {
     </div>
   );
 }
+

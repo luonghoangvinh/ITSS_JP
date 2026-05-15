@@ -1,0 +1,15 @@
+.LevelCard {
+    background: #fff;
+    border-radius: 16px;
+    border: "0.5px solid #e8e5df";
+    border-color: #e8e5df;
+    border-style: solid;
+    overflow: "hidden";
+    transition: "transform 0.1s, box-shadow 0.2s";
+    cursor: "pointer";
+}
+
+.LevelCard:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
