@@ -1,9 +1,10 @@
 import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Mainlayout } from './layouts/Mainlayout'
-import { Login } from './pages/Login/Login'
+import { Login } from './pages/Login/LogIn'
 import { SignUp } from './pages/Signup/SignUp'
 import { LessonChoose } from './pages/LessonChoose/LessonChoose'
+import Shadowing from './pages/Shadowing/Shadowing'
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
           <Route path="/home" element={<Mainlayout />}>
             <Route index element={<LessonChoose />} />
             <Route path="lessons" element={<LessonChoose />} />
+            <Route path="shadowing" element={<Shadowing />} />
           </Route>
         </Routes>
       </BrowserRouter>
