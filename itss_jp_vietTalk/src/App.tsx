@@ -4,6 +4,7 @@ import { Mainlayout } from './layouts/Mainlayout'
 import { Login } from './pages/Login/LogIn'
 import { SignUp } from './pages/Signup/SignUp'
 import { LessonChoose } from './pages/LessonChoose/LessonChoose'
+import LevelSelectPage from './pages/LevelSelectPage/LevelSelectPage'
 import Shadowing from './pages/Shadowing/Shadowing'
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
 
           <Route path="/home" element={<Mainlayout />}>
-            <Route index element={<LessonChoose />} />
+            <Route index element={<LevelSelectPage />} />
             <Route path="lessons" element={<LessonChoose />} />
             <Route path="shadowing" element={<Shadowing />} />
           </Route>
