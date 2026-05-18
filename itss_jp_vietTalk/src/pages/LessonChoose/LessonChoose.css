@@ -95,18 +95,18 @@
   margin-bottom: 25px;
 }
 
-.lesson-title-section {
+.lesson-lessonName-section {
   flex: 1;
 }
 
-.lesson-title-section h1 {
+.lesson-lessonName-section h1 {
   font-size: 36px;
   font-weight: bold;
   color: #333;
   margin: 0;
 }
 
-.lesson-title-section p {
+.lesson-lessonName-section p {
   font-size: 14px;
   color: #666;
   margin: 0 0 8px 0;
@@ -157,7 +157,7 @@
   object-fit: cover;
 }
 
-/* Lesson Theme and Rating */
+/* Lesson Topic and Rating */
 .lesson-header-info {
   display: flex;
   align-items: center;
@@ -166,7 +166,7 @@
   justify-content: space-between;
 }
 
-.lesson-theme {
+.lesson-topic {
   background-color: #FFC885;
   color: #fff;
   padding: 6px 14px;
@@ -184,7 +184,7 @@
 }
 
 /* Lesson Content */
-.lesson-title {
+.lesson-lessonName {
   font-size: 18px;
   font-weight: bold;
   color: #333;
@@ -304,7 +304,7 @@
   letter-spacing: 0.5px;
 }
 
-.advanced-lesson-title {
+.advanced-lesson-lessonName {
   font-size: 34px;
   font-weight: bold;
   color: #e8707f;
@@ -388,11 +388,11 @@
     align-self: flex-end;
   }
 
-  .lesson-title-section h1 {
+  .lesson-lessonName-section h1 {
     font-size: 24px;
   }
 
-  .lesson-title-section p {
+  .lesson-lessonName-section p {
     font-size: 16px;
   }
 
@@ -405,7 +405,7 @@
     height: 150px;
   }
 
-  .lesson-title {
+  .lesson-lessonName {
     font-size: 16px;
   }
 
@@ -447,11 +447,11 @@
     gap: 15px;
   }
 
-  .lesson-title-section h1 {
+  .lesson-lessonName-section h1 {
     font-size: 20px;
   }
 
-  .lesson-title-section p {
+  .lesson-lessonName-section p {
     font-size: 14px;
   }
 

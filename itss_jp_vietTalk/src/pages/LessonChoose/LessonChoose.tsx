@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Search, Bell, Languages } from 'lucide-react';
 import './LessonChoose.css';
 
@@ -7,26 +7,32 @@ import choImage from '../../assets/cho.jpg';
 import tradfoodImage from '../../assets/tradfood.jpg';
 import tradmusicImage from '../../assets/tradmusic.jpg';
 import tradoutfitImage from '../../assets/tradoutfit.jpg';
+import { useNavigate, useParams } from 'react-router-dom';
+import type LessonByLevelType from '../../types/lessonByLevelType';
+import mapLesson from '../../utils/mapLesson';
 
 interface Lesson {
   id: number;
-  title: string;
-  theme: string;
+  lessonName: string;
+  topic: string;
   rating: number;
   image: string;
   summary: {
     hiragana: string;
     romaji: string;
   };
-  category: string;
+  category?: string;
+  level?: string;
 }
 
+
+
 // Sample lesson data
-const lessonData: Lesson[] = [
+const lessonDataSample: Lesson[] = [
   {
     id: 1,
-    title: 'コーヒー文化',
-    theme: 'ライフスタイル',
+    lessonName: 'コーヒー文化',
+    topic: 'ライフスタイル',
     rating: 4.9,
     image: cafeImage,
     summary: {
@@ -37,8 +43,8 @@ const lessonData: Lesson[] = [
   },
   {
     id: 2,
-    title: '屋台料理のマナー',
-    theme: 'エチケット',
+    lessonName: '屋台料理のマナー',
+    topic: 'エチケット',
     rating: 4.8,
     image: 'https://images.unsplash.com/photo-1579762715118-a6f1d4b934f1?w=400&h=250&fit=crop',
     summary: {
@@ -49,8 +55,8 @@ const lessonData: Lesson[] = [
   },
   {
     id: 3,
-    title: '伝統音楽',
-    theme: '芸術',
+    lessonName: '伝統音楽',
+    topic: '芸術',
     rating: 5.0,
     image: tradmusicImage,
     summary: {
@@ -61,8 +67,8 @@ const lessonData: Lesson[] = [
   },
   {
     id: 4,
-    title: '市場での値切り交渉',
-    theme: '商業',
+    lessonName: '市場での値切り交渉',
+    topic: '商業',
     rating: 4.7,
     image: choImage,
     summary: {
@@ -73,8 +79,8 @@ const lessonData: Lesson[] = [
   },
   {
     id: 5,
-    title: '旧正月（テト）',
-    theme: '休日',
+    lessonName: '旧正月（テト）',
+    topic: '休日',
     rating: 4.9,
     image: 'https://images.unsplash.com/photo-1567521464027-f127ff144326?w=400&h=250&fit=crop',
     summary: {
@@ -85,8 +91,8 @@ const lessonData: Lesson[] = [
   },
   {
     id: 6,
-    title: 'バイクカオス',
-    theme: 'モダン',
+    lessonName: 'バイクカオス',
+    topic: 'モダン',
     rating: 4.6,
     image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=250&fit=crop',
     summary: {
@@ -97,8 +103,8 @@ const lessonData: Lesson[] = [
   },
   {
     id: 7,
-    title: 'ベトナム料理の基本',
-    theme: '食文化',
+    lessonName: 'ベトナム料理の基本',
+    topic: '食文化',
     rating: 4.8,
     image: tradfoodImage,
     summary: {
@@ -109,8 +115,8 @@ const lessonData: Lesson[] = [
   },
   {
     id: 8,
-    title: '家族文化',
-    theme: '社会',
+    lessonName: '家族文化',
+    topic: '社会',
     rating: 4.7,
     image: 'https://images.unsplash.com/photo-1511895426328-dc8714191300?w=400&h=250&fit=crop',
     summary: {
@@ -121,8 +127,8 @@ const lessonData: Lesson[] = [
   },
   {
     id: 9,
-    title: '民族衣装',
-    theme: '伝統',
+    lessonName: '民族衣装',
+    topic: '伝統',
     rating: 4.9,
     image: tradoutfitImage,
     summary: {
@@ -133,12 +139,17 @@ const lessonData: Lesson[] = [
   }
 ];
 
+
+
+
 const INITIAL_VISIBLE_LESSONS = 6;
 
 export function LessonChoose() {
   const [searchTerm, setSearchTerm] = useState('');
   const [showAll, setShowAll] = useState(false);
   const [selectedLesson, setSelectedLesson] = useState<number | null>(null);
+  const [lessonData,setLessonData] = useState<Lesson[]>(lessonDataSample);
+  const navigation = useNavigate();
 
   // Filter lessons based on search term
   const filteredLessons = useMemo(() => {
@@ -146,26 +157,55 @@ export function LessonChoose() {
     if (!lowercasedSearchTerm) return lessonData;
     return lessonData.filter(
       lesson =>
-        lesson.title.toLowerCase().includes(lowercasedSearchTerm) ||
-        lesson.theme.toLowerCase().includes(lowercasedSearchTerm) ||
+        lesson.lessonName.toLowerCase().includes(lowercasedSearchTerm) ||
+        lesson.topic.toLowerCase().includes(lowercasedSearchTerm) ||
         lesson.summary.hiragana.includes(lowercasedSearchTerm) ||
         lesson.summary.romaji.toLowerCase().includes(lowercasedSearchTerm)
     );
-  }, [searchTerm]);
+  }, [searchTerm,lessonData]);
 
   // Determine which lessons to display
   const displayedLessons = showAll ? filteredLessons : filteredLessons.slice(0, INITIAL_VISIBLE_LESSONS);
   const hasMoreLessons = filteredLessons.length > INITIAL_VISIBLE_LESSONS && !showAll;
 
-  const handleListeningClick = (lessonTitle: string) => {
-    console.log(`Listening for: ${lessonTitle}`);
+  const handleListeningClick = (lessonlessonName: string) => {
+    console.log(`Listening for: ${lessonlessonName}`);
     // Navigate to listening page
+    
   };
 
-  const handleShadowingClick = (lessonTitle: string) => {
-    console.log(`Shadowing for: ${lessonTitle}`);
+  const handleShadowingClick = (lessonlessonName: string) => {
+    console.log(`Shadowing for: ${lessonlessonName}`);
     // Navigate to shadowing page
+    navigation('/home/shadowing');
   };
+
+  const { urlLevel } = useParams();
+
+  useEffect(() => {
+    const fetchLessons = async () => {
+      try {
+
+
+        const res = await fetch(`/api/lessons/level/${urlLevel}`);
+
+        if (!res.ok) {
+          throw new Error("Failed to fetch lessons");
+        }
+
+        const data: LessonByLevelType[] = await res.json();
+
+        const mapped: Lesson[] = data.map(mapLesson);
+
+        setLessonData(mapped);
+      } catch (err: any) {
+        console.error(err);
+      }
+    };
+
+    fetchLessons();
+  }, []);
+
 
   return (
     <div className="lesson-choose-container">
@@ -194,9 +234,9 @@ export function LessonChoose() {
 
       {/* Main Content Area */}
       <div className="lesson-content">
-        {/* Header with Title and See More Button */}
+        {/* Header with lessonName and See More Button */}
         <div className="lesson-header">
-          <div className="lesson-title-section">
+          <div className="lesson-lessonName-section">
             <p>ベトナムトークアカデミー</p>
             <h1>トピックを選択してください</h1>
           </div>
@@ -220,17 +260,17 @@ export function LessonChoose() {
             >
               {/* Lesson Image */}
               <div className="lesson-image">
-                <img src={lesson.image} alt={lesson.title} />
+                <img src={lesson.image} alt={lesson.lessonName} />
               </div>
 
-              {/* Lesson Theme and Rating */}
+              {/* Lesson Topic and Rating */}
               <div className="lesson-header-info">
-                <span className="lesson-theme">{lesson.theme}</span>
+                <span className="lesson-topic">{lesson.topic}</span>
                 <span className="lesson-rating">★ {lesson.rating}</span>
               </div>
 
-              {/* Lesson Title */}
-              <h3 className="lesson-title">{lesson.title}</h3>
+              {/* Lesson lessonName */}
+              <h3 className="lesson-lessonName">{lesson.lessonName}</h3>
 
               {/* Lesson Summary */}
               <div className="lesson-summary">
@@ -242,13 +282,13 @@ export function LessonChoose() {
               <div className="lesson-buttons">
                 <button
                   className="btn-listening"
-                  onClick={() => handleListeningClick(lesson.title)}
+                  onClick={() => handleListeningClick(lesson.lessonName)}
                 >
                   リスニング
                 </button>
                 <button
                   className="btn-shadowing"
-                  onClick={() => handleShadowingClick(lesson.title)}
+                  onClick={() => handleShadowingClick(lesson.lessonName)}
                 >
                   シャドウイング
                 </button>

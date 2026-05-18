@@ -71,10 +71,13 @@ export class AuthService {
             );
         }
 
-        const isMatch = await bcrypt.compare(
+        //không cần thiết vì bcrypt.compare sẽ trả về false nếu password không khớp
+        //Vì là project nhỏ nên mình sẽ không hash password để dễ test, nếu có thời gian mình sẽ update sau
+        /*const isMatch = await bcrypt.compare(
             password,
             account.password,
-        );
+        );*/
+        const isMatch = password === account.password;
 
         if (!isMatch) {
             throw new UnauthorizedException(

@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { LessonsService } from './lesson.service';
 import { CreateLessonDto } from './dto/create-lesson.dto';
 import { UpdateLessonDto } from './dto/update-lesson.dto';
+import { get } from 'http';
 
 @Controller('lessons')
 export class LessonsController {
@@ -20,6 +21,10 @@ export class LessonsController {
     @Get(':id')
     findOne(@Param('id') id: string) {
         return this.lessonsService.findOne(+id);
+    }
+    @Get('level/:level')
+    findByLevel(@Param('level') level: string) {
+        return this.lessonsService.findByLevel(level);
     }
 
     @Patch(':id')

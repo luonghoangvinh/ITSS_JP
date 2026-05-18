@@ -1,11 +1,13 @@
 import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Mainlayout } from './layouts/Mainlayout'
-import { Login } from './pages/Login/LogIn'
+import { Login } from './pages/Login/Login'
 import { SignUp } from './pages/Signup/SignUp'
 import { LessonChoose } from './pages/LessonChoose/LessonChoose'
 import LevelSelectPage from './pages/LevelSelectPage/LevelSelectPage'
 import Shadowing from './pages/Shadowing/Shadowing'
+import DictionaryScreen from './pages/DictionaryScreen/DictionaryScreen'
+import ShadowingScreen from './pages/Shadowing/Shadowing'
 
 function App() {
 
@@ -19,7 +21,10 @@ function App() {
 
           <Route path="/home" element={<Mainlayout />}>
             <Route index element={<LevelSelectPage />} />
-            <Route path="lessons" element={<LessonChoose />} />
+            <Route path="levelselect" element={<LevelSelectPage />} />
+            <Route path="dictionary" element={<DictionaryScreen />} />
+            <Route path="shadowing" element={<ShadowingScreen />} />
+            <Route path="lessons/:urlLevel" element={<LessonChoose />} />
             <Route path="shadowing" element={<Shadowing />} />
           </Route>
         </Routes>

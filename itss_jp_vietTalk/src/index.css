@@ -1,5 +1,5 @@
 @import "tailwindcss";
-
+/*
 * {
   margin: 0;
   padding: 0;
@@ -75,6 +75,9 @@ html, body, #root {
 body {
   margin: 0;
 }
+
+*/
+
 /* Global styles for headings, paragraphs, and code elements 
 h1,
 h2 {
