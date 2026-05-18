@@ -1,5 +1,5 @@
 import { Lightbulb, Volume2 } from "lucide-react";
-import type TranslateType from "../types/translateType";
+import type TranslateType from "../types/TranslateType";
 import "./SearchResultShow.css"
 import { useState } from "react";
 
@@ -9,8 +9,8 @@ type SearchResultShowProps = {
 export default function SearchResultShow({ result }: SearchResultShowProps) {
     const [searchResultShow, setSearchResultShow] = useState<TranslateType>(result);
     return (
-        <div className="flex flex-col p-1 ml-2 bg-[#F7E4E3] gap-4">
-            <div className="flex items-center gap-8">
+        <div className="flex flex-col p-1 ml-2 bg-[#F7E4E3] gap-4 w-full">
+            <div className="flex items-center gap-8 m-8">
                 <div className="flex flex-col gap-4">
                     <p className="text-[#B51621] text-4xl font-bold">{result.vn}</p>
                     <p className="text-2xl">{result.jp}</p>
@@ -22,9 +22,9 @@ export default function SearchResultShow({ result }: SearchResultShowProps) {
             </div>
 
             {/* Example section */}
-            <div className="flex gap-4 h-64 bg-white p-4 rounded-lg m-2 justify-center">
+            <div className="flex  w-full gap-4  bg-white p-4 rounded-lg m-2 justify-center">
                 {/* Example 1 */}
-                <div className="bg-[#F7E4E3] rounded-[30px] p-4 border-l-8 border-l-red-800 min-w-[43rem]">
+                <div className="bg-[#F7E4E3] rounded-[30px] p-4 border-l-8 border-l-red-800 min-w-[48%] min-h-24">
                     <div className="flex gap-0.5">
                         <span className="text-xl text-red-900 font-bold translate-y-0.5"><Lightbulb /></span>
                         <p className="text-xl text-red-900 font-bold">例 1</p>
@@ -36,7 +36,7 @@ export default function SearchResultShow({ result }: SearchResultShowProps) {
                 </div>
 
                 {/* Example 2 */}
-                <div className="bg-[#F7E4E3] rounded-[30px] p-4 border-l-8 border-l-green-800 min-w-[43rem]">
+                <div className="bg-[#F7E4E3] rounded-[30px] p-4 border-l-8 border-l-green-800 min-w-[48%] min-h-[12]">
                     <div className="flex gap-0.5">
                         <span className="text-xl text-green-900 font-bold translate-y-0.5"><Lightbulb /></span>
                         <p className="text-xl text-green-900 font-bold">例 2</p>
