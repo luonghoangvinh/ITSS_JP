@@ -1,73 +1,15 @@
-import { useState, useEffect, useRef } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Play, Pause, RotateCcw, RotateCw, CheckCircle2, ChevronDown } from 'lucide-react';
 import './Listening.css';
 
 export function Listening() {
   const navigate = useNavigate();
-  const location = useLocation();
   const [isPlaying, setIsPlaying] = useState(false);
   const [speed, setSpeed] = useState(1);
   const [showSpeedMenu, setShowSpeedMenu] = useState(false);
   
-  const [lessonData, setLessonData] = useState<any>(null);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-  const [progress, setProgress] = useState(0);
-  const [currentTime, setCurrentTime] = useState('00:00');
-  const [duration, setDuration] = useState('00:00');
-
-  const lessonId = location.state?.lessonId;
-
-  useEffect(() => {
-    if (lessonId) {
-      fetch(`/api/lessons/${lessonId}`)
-        .then(res => res.json())
-        .then(data => {
-          setLessonData(data);
-        })
-        .catch(err => console.error(err));
-    }
-  }, [lessonId]);
-
   const speeds = [0.25, 0.5, 1, 1.25, 1.5];
-
-  const formatTime = (time: number) => {
-    if (isNaN(time)) return '00:00';
-    const m = Math.floor(time / 60).toString().padStart(2, '0');
-    const s = Math.floor(time % 60).toString().padStart(2, '0');
-    return `${m}:${s}`;
-  };
-
-  const handleTimeUpdate = () => {
-    if (audioRef.current) {
-      const current = audioRef.current.currentTime;
-      const total = audioRef.current.duration;
-      setProgress((current / total) * 100 || 0);
-      setCurrentTime(formatTime(current));
-    }
-  };
-
-  const handleLoadedMetadata = () => {
-    if (audioRef.current) {
-      setDuration(formatTime(audioRef.current.duration));
-    }
-  };
-
-  const handlePlayPause = () => {
-    if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.pause();
-      } else {
-        audioRef.current.play();
-      }
-    }
-  };
-
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.playbackRate = speed;
-    }
-  }, [speed]);
 
   return (
     <div className="listening-container">
@@ -76,33 +18,22 @@ export function Listening() {
           <ArrowLeft size={24} />
         </button>
         <div className="header-titles">
-          <p className="level-subtitle">レベル {lessonData?.level || 'C'}・リスニング</p>
-          <h1 className="lesson-main-title">{lessonData?.lessonName || '読み込み中...'}</h1>
+          <p className="level-subtitle">レベル C・リスニング</p>
+          <h1 className="lesson-main-title">ハノイでの日常会話</h1>
         </div>
       </div>
 
       <div className="player-card">
-        {lessonData?.video && (
-          <audio 
-            ref={audioRef} 
-            src={lessonData.video} 
-            onEnded={() => setIsPlaying(false)}
-            onPause={() => setIsPlaying(false)}
-            onPlay={() => setIsPlaying(true)}
-            onTimeUpdate={handleTimeUpdate}
-            onLoadedMetadata={handleLoadedMetadata}
-          />
-        )}
         <div className="player-image-wrapper">
-          <img src={lessonData?.image || "https://placehold.co/400x400/f5f0ed/333?text=No+Image"} alt={lessonData?.lessonName || "Lesson"} className="player-image" />
+          <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&q=80" alt="Hanoi" className="player-image" />
         </div>
         
         <div className="progress-container">
-          <span className="time-text">{currentTime}</span>
+          <span className="time-text">01:42</span>
           <div className="progress-bar">
-            <div className="progress-fill" style={{ width: `${progress}%` }}></div>
+            <div className="progress-fill" style={{ width: '45%' }}></div>
           </div>
-          <span className="time-text">{duration}</span>
+          <span className="time-text">03:50</span>
         </div>
 
         <div className="player-controls">
@@ -126,20 +57,16 @@ export function Listening() {
           </div>
 
           <div className="main-controls">
-            <button className="skip-btn" onClick={() => {
-              if (audioRef.current) audioRef.current.currentTime -= 10;
-            }}>
+            <button className="skip-btn">
               <RotateCcw size={24} />
               <span className="skip-text">10</span>
             </button>
             
-            <button className="play-pause-btn" onClick={handlePlayPause}>
+            <button className="play-pause-btn" onClick={() => setIsPlaying(!isPlaying)}>
               {isPlaying ? <Pause size={32} fill="currentColor" /> : <Play size={32} fill="currentColor" />}
             </button>
             
-            <button className="skip-btn" onClick={() => {
-              if (audioRef.current) audioRef.current.currentTime += 10;
-            }}>
+            <button className="skip-btn">
               <RotateCw size={24} />
               <span className="skip-text">10</span>
             </button>
