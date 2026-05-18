@@ -30,7 +30,7 @@ export function LessonChoose() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [advancedLesson, setAdvancedLesson] = useState<Lesson | null>(null);
-  
+
   const navigate = useNavigate();
   const { urlLevel } = useParams();
 

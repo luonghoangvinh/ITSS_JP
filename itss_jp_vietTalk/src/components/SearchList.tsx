@@ -12,6 +12,13 @@ function SearchList({ setSearchState }: SearchListProps) {
     const [search, setSearch] = useState<string>("");
     const [selectedEntry, setSelectedEntry] = useState<TranslateType | null>(null);
     const [result, setResult] = useState("");
+    const [entries, setEntries] = useState<TranslateType[]>([
+        { vn: "Xin chào", jp: "こんにちは" },
+        { vn: "Cảm ơn", jp: "ありがとう" },
+        { vn: "Phở", jp: "フォー" },
+        { vn: "Thành phố", jp: "都市" },
+        { vn: "Phát triển", jp: "発展する" },
+    ]);
 
     const handleSelected = ({ vn, jp }: TranslateType) => {
         setSearchState({ vn, jp });
@@ -29,6 +36,7 @@ function SearchList({ setSearchState }: SearchListProps) {
             const data = await res.json();
 
             setResult(data.responseData.translatedText);
+            setEntries([{ vn: text, jp: data.responseData.translatedText },...entries ]);
             setSearchState({ vn: text, jp: data.responseData.translatedText });
         } catch (err) {
             console.error(err);
@@ -41,13 +49,7 @@ function SearchList({ setSearchState }: SearchListProps) {
         }
     };
 
-    const [entries, setEntries] = useState<TranslateType[]>([
-        { vn: "Xin chào", jp: "こんにちは" },
-        { vn: "Cảm ơn", jp: "ありがとう" },
-        { vn: "Phở", jp: "フォー" },
-        { vn: "Thành phố", jp: "都市" },
-        { vn: "Phát triển", jp: "発展する" },
-    ]);
+    
 
 
 
@@ -71,7 +73,7 @@ function SearchList({ setSearchState }: SearchListProps) {
             </div>
 
             <div className="flex flex-col gap-4">
-                {entries.map((entry, idx) => (
+                {entries.slice(0, 5).map((entry, idx) => (
                     <button
                         key={idx}
                         id={`search-history-card${selectedEntry === entry ? "-selected" : ""}`}
