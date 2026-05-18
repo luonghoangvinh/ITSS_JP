@@ -1,4 +1,5 @@
 import { useState, useMemo, useEffect } from 'react';
+<<<<<<< Updated upstream
 import { Search, Bell, Languages } from 'lucide-react';
 import './LessonChoose.css';
 
@@ -11,6 +12,12 @@ import { useNavigate, useParams } from 'react-router-dom';
 import type LessonByLevelType from '../../types/lessonByLevelType';
 import mapLesson from '../../utils/mapLesson';
 
+=======
+import { useNavigate } from 'react-router-dom';
+import { Search, Bell, Languages } from 'lucide-react';
+import './LessonChoose.css';
+
+>>>>>>> Stashed changes
 interface Lesson {
   id: number;
   lessonName: string;
@@ -25,6 +32,7 @@ interface Lesson {
   level?: string;
 }
 
+<<<<<<< Updated upstream
 
 
 // Sample lesson data
@@ -142,32 +150,92 @@ const lessonDataSample: Lesson[] = [
 
 
 
+=======
+>>>>>>> Stashed changes
 const INITIAL_VISIBLE_LESSONS = 6;
 
 export function LessonChoose() {
   const [searchTerm, setSearchTerm] = useState('');
   const [showAll, setShowAll] = useState(false);
   const [selectedLesson, setSelectedLesson] = useState<number | null>(null);
+<<<<<<< Updated upstream
   const [lessonData,setLessonData] = useState<Lesson[]>(lessonDataSample);
   const navigation = useNavigate();
+=======
+  const [lessons, setLessons] = useState<Lesson[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [advancedLesson, setAdvancedLesson] = useState<Lesson | null>(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchLessons = async () => {
+      try {
+        // Gọi qua proxy /api thay vì http://localhost:3000 để bypass hoàn toàn CORS
+        const response = await fetch('/api/lessons');
+        if (!response.ok) {
+          throw new Error('Mạng hoặc server gặp lỗi');
+        }
+        const data = await response.json();
+        
+        const mappedLessons: Lesson[] = data.map((item: any) => ({
+          id: item.id,
+          title: item.lessonName || '無題',
+          theme: item.topic || 'テーマなし',
+          rating: item.rating ? Number(item.rating) : 5.0,
+          image: item.image || 'https://placehold.co/600x400/f5f0ed/333?text=No+Image',
+          summary: {
+            hiragana: item.description || '',
+            romaji: item.lessonContent || ''
+          },
+          category: item.level || 'general'
+        }));
+        
+        setLessons(mappedLessons);
+        
+        if (mappedLessons.length > 0) {
+          const randomIndex = Math.floor(Math.random() * mappedLessons.length);
+          setAdvancedLesson(mappedLessons[randomIndex]);
+        }
+      } catch (err: any) {
+        console.error('Error fetching lessons:', err);
+        setError('Không thể kết nối đến máy chủ. Hãy chắc chắn backend đang chạy và vite.config.ts đã được cài đặt proxy.');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchLessons();
+  }, []);
+>>>>>>> Stashed changes
 
   // Filter lessons based on search term
   const filteredLessons = useMemo(() => {
     const lowercasedSearchTerm = searchTerm.toLowerCase();
-    if (!lowercasedSearchTerm) return lessonData;
-    return lessonData.filter(
+    if (!lowercasedSearchTerm) return lessons;
+    return lessons.filter(
       lesson =>
+<<<<<<< Updated upstream
         lesson.lessonName.toLowerCase().includes(lowercasedSearchTerm) ||
         lesson.topic.toLowerCase().includes(lowercasedSearchTerm) ||
         lesson.summary.hiragana.includes(lowercasedSearchTerm) ||
         lesson.summary.romaji.toLowerCase().includes(lowercasedSearchTerm)
     );
   }, [searchTerm,lessonData]);
+=======
+        (lesson.title || '').toLowerCase().includes(lowercasedSearchTerm) ||
+        (lesson.theme || '').toLowerCase().includes(lowercasedSearchTerm) ||
+        (lesson.summary.hiragana || '').toLowerCase().includes(lowercasedSearchTerm) ||
+        (lesson.summary.romaji || '').toLowerCase().includes(lowercasedSearchTerm)
+    );
+  }, [searchTerm, lessons]);
+>>>>>>> Stashed changes
 
   // Determine which lessons to display
   const displayedLessons = showAll ? filteredLessons : filteredLessons.slice(0, INITIAL_VISIBLE_LESSONS);
   const hasMoreLessons = filteredLessons.length > INITIAL_VISIBLE_LESSONS && !showAll;
 
+<<<<<<< Updated upstream
   const handleListeningClick = (lessonlessonName: string) => {
     console.log(`Listening for: ${lessonlessonName}`);
     // Navigate to listening page
@@ -178,6 +246,16 @@ export function LessonChoose() {
     console.log(`Shadowing for: ${lessonlessonName}`);
     // Navigate to shadowing page
     navigation('/home/shadowing');
+=======
+  const handleListeningClick = (lessonTitle: string) => {
+    console.log(`Listening for: ${lessonTitle}`);
+    navigate('/home/listening');
+  };
+
+  const handleShadowingClick = (lessonTitle: string) => {
+    console.log(`Shadowing for: ${lessonTitle}`);
+    navigate('/home/shadowing');
+>>>>>>> Stashed changes
   };
 
   const { urlLevel } = useParams();
@@ -251,6 +329,7 @@ export function LessonChoose() {
         </div>
 
         {/* Lessons Grid */}
+<<<<<<< Updated upstream
         <div className="lessons-grid">
           {displayedLessons.map(lesson => (
             <div
@@ -271,13 +350,41 @@ export function LessonChoose() {
 
               {/* Lesson lessonName */}
               <h3 className="lesson-lessonName">{lesson.lessonName}</h3>
+=======
+        {isLoading ? (
+          <div style={{ textAlign: 'center', padding: '2rem' }}>読み込み中...</div>
+        ) : error ? (
+          <div style={{ textAlign: 'center', padding: '2rem', color: '#e8707f', fontWeight: 'bold' }}>{error}</div>
+        ) : (
+          <div className="lessons-grid">
+            {displayedLessons.map(lesson => (
+              <div
+                key={lesson.id}
+                className={`lesson-card ${selectedLesson === lesson.id ? 'selected' : ''}`}
+                onClick={() => setSelectedLesson(lesson.id)}
+              >
+                {/* Lesson Image */}
+                <div className="lesson-image">
+                  <img src={lesson.image} alt={lesson.title} />
+                </div>
 
-              {/* Lesson Summary */}
-              <div className="lesson-summary">
-                <p className="summary-hiragana">{lesson.summary.hiragana}</p>
-                <p className="summary-romaji">{lesson.summary.romaji}</p>
-              </div>
+                {/* Lesson Theme and Rating */}
+                <div className="lesson-header-info">
+                  <span className="lesson-theme">{lesson.theme}</span>
+                  <span className="lesson-rating">★ {lesson.rating}</span>
+                </div>
 
+                {/* Lesson Title */}
+                <h3 className="lesson-title">{lesson.title}</h3>
+>>>>>>> Stashed changes
+
+                {/* Lesson Summary */}
+                <div className="lesson-summary">
+                  <p className="summary-hiragana">{lesson.summary.hiragana}</p>
+                  <p className="summary-romaji">{lesson.summary.romaji}</p>
+                </div>
+
+<<<<<<< Updated upstream
               {/* Action Buttons */}
               <div className="lesson-buttons">
                 <button
@@ -292,28 +399,47 @@ export function LessonChoose() {
                 >
                   シャドウイング
                 </button>
+=======
+                {/* Action Buttons */}
+                <div className="lesson-buttons">
+                  <button
+                    className="btn-listening"
+                    onClick={() => handleListeningClick(lesson.title)}
+                  >
+                    リスニング
+                  </button>
+                  <button
+                    className="btn-shadowing"
+                    onClick={() => handleShadowingClick(lesson.title)}
+                  >
+                    シャドウイング
+                  </button>
+                </div>
+>>>>>>> Stashed changes
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
 
         {/* Advanced Lesson Preview */}
-        <div className="advanced-lesson-preview">
-          <div className="advanced-lesson-image">
-            <img src={tradfoodImage} alt="キッチン会話の" />
+        {advancedLesson && (
+          <div className="advanced-lesson-preview">
+            <div className="advanced-lesson-image">
+              <img src={advancedLesson.image} alt={advancedLesson.title} />
+            </div>
+            <div className="advanced-lesson-content">
+              <p className="advanced-lesson-subtitle">特別レッスン</p>
+              <h2 className="advanced-lesson-title">{advancedLesson.title}</h2>
+              <p className="advanced-lesson-description">
+                {advancedLesson.summary.hiragana}
+              </p>
+              <button className="btn-advanced-course">上級コースを始める</button>
+            </div>
           </div>
-          <div className="advanced-lesson-content">
-            <p className="advanced-lesson-subtitle">特別レッスン</p>
-            <h2 className="advanced-lesson-title">キッチン会話の</h2>
-            <p className="advanced-lesson-description">
-              ベトナム家庭の調理現場で使われる専門語彙を深く学びましょう。隠し味の尋ね方や、日本の文化背景を交えながら食事を共にする方法を習得します。
-            </p>
-            <button className="btn-advanced-course">上級コースを始める</button>
-          </div>
-        </div>
+        )}
 
         {/* No Results */}
-        {displayedLessons.length === 0 && (
+        {!isLoading && !error && displayedLessons.length === 0 && (
           <div className="no-results">
             <p>検索結果がありません</p>
           </div>

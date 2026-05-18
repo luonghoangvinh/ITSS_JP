@@ -6,8 +6,12 @@ import { SignUp } from './pages/Signup/SignUp'
 import { LessonChoose } from './pages/LessonChoose/LessonChoose'
 import LevelSelectPage from './pages/LevelSelectPage/LevelSelectPage'
 import Shadowing from './pages/Shadowing/Shadowing'
+<<<<<<< Updated upstream
 import DictionaryScreen from './pages/DictionaryScreen/DictionaryScreen'
 import ShadowingScreen from './pages/Shadowing/Shadowing'
+=======
+import { Listening } from './pages/LessonChoose/ListeningPage/Listening'
+>>>>>>> Stashed changes
 
 function App() {
 
@@ -26,6 +30,7 @@ function App() {
             <Route path="shadowing" element={<ShadowingScreen />} />
             <Route path="lessons/:urlLevel" element={<LessonChoose />} />
             <Route path="shadowing" element={<Shadowing />} />
+            <Route path="listening" element={<Listening />} />
           </Route>
         </Routes>
       </BrowserRouter>
