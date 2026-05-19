@@ -55,7 +55,7 @@ function SearchList({ setSearchState }: SearchListProps) {
 
     return (
 
-        <div className="w-50 gap-4 bg-[#FFEDEC] flex flex-col h-dvh p-4 ml-4" >
+        <div className="w-50 gap-4 bg-[#FFEDEC] flex flex-col h-dvh p-4 ml-1 rounded-2xl" >
             <div className="flex items-center justify-between">
                 <h2 className="text-xl font-black text-gray-900 italic tracking-tighter underline decoration-[#B91C1C]/10 underline-offset-8">辞書</h2>
                 <div>Header</div>

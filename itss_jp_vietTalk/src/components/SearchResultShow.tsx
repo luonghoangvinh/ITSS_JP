@@ -9,8 +9,8 @@ type SearchResultShowProps = {
 export default function SearchResultShow({ result }: SearchResultShowProps) {
     const [searchResultShow, setSearchResultShow] = useState<TranslateType>(result);
     return (
-        <div className="flex flex-col p-1 ml-2 bg-[#F7E4E3] gap-4 w-full">
-            <div className="flex items-center gap-8 m-8">
+        <div className="flex flex-col p-1 bg-white gap-4 w-full">
+            <div className="flex items-center gap-8 bg-[#FFF1F1] w-full pl-8">
                 <div className="flex flex-col gap-4">
                     <p className="text-[#B51621] text-4xl font-bold">{result.vn}</p>
                     <p className="text-2xl">{result.jp}</p>
