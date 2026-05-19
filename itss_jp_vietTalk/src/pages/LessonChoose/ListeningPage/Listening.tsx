@@ -1,7 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { ArrowLeft, Play, Pause, RotateCcw, RotateCw, CheckCircle2, ChevronDown } from 'lucide-react';
+import SrtParser2 from "srt-parser-2";
 import './Listening.css';
+import timeToSeconds from '../../../utils/timeToSeconds';
 
 export function Listening() {
   const navigate = useNavigate();
@@ -9,14 +11,17 @@ export function Listening() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [speed, setSpeed] = useState(1);
   const [showSpeedMenu, setShowSpeedMenu] = useState(false);
-  
+
   const [lessonData, setLessonData] = useState<any>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [progress, setProgress] = useState(0);
   const [currentTime, setCurrentTime] = useState('00:00');
   const [duration, setDuration] = useState('00:00');
+  const [subtitle, setSubtitle] = useState<any[]>([]);
+  const [currentSubtitle, setCurrentSubtitle] = useState('');
 
   const lessonId = location.state?.lessonId;
+
 
   useEffect(() => {
     if (lessonId) {
@@ -27,7 +32,29 @@ export function Listening() {
         })
         .catch(err => console.error(err));
     }
+
   }, [lessonId]);
+
+  useEffect(() => {
+    if (lessonData != null) {
+      const fetchSubtitle = async () => {
+
+        const res = await fetch(lessonData.lessonContent);
+        const srtText = await res.text();
+        const parser = new SrtParser2();
+        const parsed = parser.fromSrt(srtText);
+
+        const formatted = parsed.map((sub) => ({
+          startTime: timeToSeconds(sub.startTime),
+          endTime: timeToSeconds(sub.endTime),
+          text: sub.text
+        }))
+        setSubtitle(formatted);
+
+      }
+      fetchSubtitle();
+    }
+  }, [lessonData])
 
   const speeds = [0.25, 0.5, 1, 1.25, 1.5];
 
@@ -44,6 +71,12 @@ export function Listening() {
       const total = audioRef.current.duration;
       setProgress((current / total) * 100 || 0);
       setCurrentTime(formatTime(current));
+
+      const currentText = subtitle.find((sub) =>
+        current >= sub.startTime && current <= sub.endTime
+      )
+      setCurrentSubtitle(currentText?.text || "")
+
     }
   };
 
@@ -83,9 +116,9 @@ export function Listening() {
 
       <div className="player-card">
         {lessonData?.video && (
-          <audio 
-            ref={audioRef} 
-            src={lessonData.video} 
+          <audio
+            ref={audioRef}
+            src={lessonData.video}
             onEnded={() => setIsPlaying(false)}
             onPause={() => setIsPlaying(false)}
             onPlay={() => setIsPlaying(true)}
@@ -96,7 +129,7 @@ export function Listening() {
         <div className="player-image-wrapper">
           <img src={lessonData?.image || "https://placehold.co/400x400/f5f0ed/333?text=No+Image"} alt={lessonData?.lessonName || "Lesson"} className="player-image" />
         </div>
-        
+
         <div className="progress-container">
           <span className="time-text">{currentTime}</span>
           <div className="progress-bar">
@@ -113,8 +146,8 @@ export function Listening() {
             {showSpeedMenu && (
               <div className="speed-menu">
                 {speeds.map(s => (
-                  <button 
-                    key={s} 
+                  <button
+                    key={s}
                     className={`speed-option ${speed === s ? 'active' : ''}`}
                     onClick={() => { setSpeed(s); setShowSpeedMenu(false); }}
                   >
@@ -132,11 +165,11 @@ export function Listening() {
               <RotateCcw size={24} />
               <span className="skip-text">10</span>
             </button>
-            
+
             <button className="play-pause-btn" onClick={handlePlayPause}>
               {isPlaying ? <Pause size={32} fill="currentColor" /> : <Play size={32} fill="currentColor" />}
             </button>
-            
+
             <button className="skip-btn" onClick={() => {
               if (audioRef.current) audioRef.current.currentTime += 10;
             }}>
@@ -144,7 +177,7 @@ export function Listening() {
               <span className="skip-text">10</span>
             </button>
           </div>
-          
+
           <div style={{ width: '80px' }}></div>
         </div>
       </div>
@@ -165,44 +198,24 @@ export function Listening() {
           <div className="dialogue-row">
             <div className="avatar a-avatar">A</div>
             <div className="bubble">
-              <p className="vn-text"><span className="highlight-text">Chào anh!</span> Anh có muốn thử món phở bò truyền thống của chúng tôi không?</p>
+              <p className="vn-text"><p className="highlight-text">{currentSubtitle}</p></p>
               <div className="jp-text-wrapper">
-                 <p className="jp-text">
-                   <ruby>こんにちは<rt>わたし</rt></ruby> <ruby>私<rt>でんとうてき</rt></ruby>たちの伝統的<ruby>な牛肉<rt>ぎゅうにく</rt></ruby>フォーを<ruby>試<rt>ため</rt></ruby>してみませんか？
-                 </p>
+                <p className="jp-text">
+
+                </p>
               </div>
             </div>
           </div>
 
-          <div className="dialogue-row">
-            <div className="avatar b-avatar">B</div>
-            <div className="bubble">
-              <p className="vn-text"><span className="highlight-text">Vâng, cho tôi một bát nhé.</span> Phở ở đây có gì đặc biệt không ạ?</p>
-              <div className="jp-text-wrapper">
-                 <p className="jp-text">
-                   <ruby>はい<rt>はい</rt></ruby>、1杯ください。ここのフォーには<ruby>何<rt>なに</rt></ruby>か<ruby>特別<rt>とくべつ</rt></ruby>なところがありますか？
-                 </p>
-              </div>
-            </div>
-          </div>
+          
 
-          <div className="dialogue-row">
-            <div className="avatar a-avatar">A</div>
-            <div className="bubble">
-              <p className="vn-text">Nước dùng của chúng tôi được ninh từ xương ống trong 24 giờ đấy ạ.</p>
-              <div className="jp-text-wrapper">
-                 <p className="jp-text">
-                   <ruby>私<rt>わたし</rt></ruby>たちのスープは、<ruby>牛<rt>ぎゅう</rt></ruby>の<ruby>骨<rt>ほね</rt></ruby>を24<ruby>時間煮<rt>じかんにこ</rt></ruby>込んで<ruby>作<rt>つく</rt></ruby>っています。
-                 </p>
-              </div>
-            </div>
-          </div>
+          
         </div>
       </div>
 
       <div className="footer-section">
         <p className="test-prompt">理解度をテストする準備はできましたか？</p>
-        <button className="finish-btn" onClick={() => navigate('/home/lessons')}>
+        <button className="finish-btn" onClick={() => navigate(`/home/lessons/${lessonData.level}`)}>
           終了 <CheckCircle2 size={20} />
         </button>
         <p className="xp-reward">+250 XP報酬</p>
