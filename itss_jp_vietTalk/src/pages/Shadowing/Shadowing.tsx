@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 // simple animated bars implemented with state + CSS transitions (no framer-motion)
 import { Play, Mic, RotateCcw } from "lucide-react";
 import { Link } from "react-router-dom";
-import { fetchDefaultLesson, submitRecording, fetchStats } from "../../api/shadowing";
+import { fetchDefaultLesson, submitRecording } from "../../api/shadowing";
 import type { Lesson, Phrase } from "../../api/shadowing";
 
 const ShadowingScreen = () => {
@@ -53,7 +53,6 @@ const ShadowingScreen = () => {
   };
 
   const handleNext = () => setCurrentIndex(i => Math.min((lesson?.phrases?.length ?? 1) - 1, i + 1));
-  const handlePrev = () => setCurrentIndex(i => Math.max(0, i - 1));
 
   const startRecording = async () => {
     if (!navigator.mediaDevices) return alert('Recording not supported');

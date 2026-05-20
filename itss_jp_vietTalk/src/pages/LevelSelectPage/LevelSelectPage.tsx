@@ -1,8 +1,7 @@
-import { use, useState } from "react";
 import type LevelSelectType from "../../types/LevelSelectType";
 import "./LevelSelectPage.css";
 import { Bell, CircleUserRound, Languages } from "lucide-react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 const PRIMARY = "#e8505b";
 const LEVELS: LevelSelectType[] = [
     {

@@ -5,6 +5,7 @@ import { Login } from './pages/Login/LogIn'
 import { SignUp } from './pages/Signup/SignUp'
 import { LessonChoose } from './pages/LessonChoose/LessonChoose'
 import LevelSelectPage from './pages/LevelSelectPage/LevelSelectPage'
+import LevelAssessment from './pages/LevelAssessment/LevelAssessment'
 import Shadowing from './pages/Shadowing/Shadowing'
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
             <Route index element={<LevelSelectPage />} />
             <Route path="lessons" element={<LessonChoose />} />
             <Route path="shadowing" element={<Shadowing />} />
+            <Route path="levelassessment" element={<LevelAssessment />} />
           </Route>
         </Routes>
       </BrowserRouter>
