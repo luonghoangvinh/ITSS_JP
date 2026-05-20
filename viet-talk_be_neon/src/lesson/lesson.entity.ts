@@ -1,5 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { AccountLessonTake } from '../account-lesson/account-lesson-take.entity';
+import { text } from 'stream/consumers';
 
 @Entity('lessons')
 export class Lesson {
@@ -29,6 +30,9 @@ export class Lesson {
 
     @Column({ type: 'decimal', precision: 3, scale: 2, nullable: true })
     rating!: number;
+
+    @Column({ name: 'lesson_content_jp',type:'text',nullable:true })
+    lessonContentJp?: string;
 
     @OneToMany(() => AccountLessonTake, (alt) => alt.lesson)
     accountTakes!: AccountLessonTake[];

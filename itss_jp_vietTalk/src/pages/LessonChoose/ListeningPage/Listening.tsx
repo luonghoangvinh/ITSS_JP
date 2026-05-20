@@ -19,6 +19,10 @@ export function Listening() {
   const [duration, setDuration] = useState('00:00');
   const [subtitle, setSubtitle] = useState<any[]>([]);
   const [currentSubtitle, setCurrentSubtitle] = useState('');
+  const [subtitleJP, setSubtitleJP] = useState<any[]>([]);
+  const [currentSubtitleJP, setCurrentSubtitleJP] = useState('');
+
+  const [subtitleModeVN,setSubtitleModeVN]=useState<Boolean>(true);
 
   const lessonId = location.state?.lessonId;
 
@@ -44,13 +48,23 @@ export function Listening() {
         const parser = new SrtParser2();
         const parsed = parser.fromSrt(srtText);
 
+        const resJP = await fetch(lessonData.lessonContentJp);
+        const srtTextJP = await resJP.text();
+        
+        const parsedJP = parser.fromSrt(srtTextJP);
+
         const formatted = parsed.map((sub) => ({
           startTime: timeToSeconds(sub.startTime),
           endTime: timeToSeconds(sub.endTime),
           text: sub.text
         }))
+        const formattedJP = parsedJP.map((sub) => ({
+          startTime: timeToSeconds(sub.startTime),
+          endTime: timeToSeconds(sub.endTime),
+          text: sub.text
+        }))
         setSubtitle(formatted);
-
+        setSubtitleJP(formattedJP);
       }
       fetchSubtitle();
     }
@@ -75,7 +89,11 @@ export function Listening() {
       const currentText = subtitle.find((sub) =>
         current >= sub.startTime && current <= sub.endTime
       )
-      setCurrentSubtitle(currentText?.text || "")
+      const currentTextJP = subtitleJP.find((sub) =>
+        current >= sub.startTime && current <= sub.endTime
+      )
+      setCurrentSubtitle(currentText?.text || "");
+      setCurrentSubtitleJP(currentTextJP?.text||"");
 
     }
   };
@@ -189,8 +207,8 @@ export function Listening() {
             転写
           </div>
           <div className="lang-toggle">
-            <button className="lang-btn active">VN</button>
-            <button className="lang-btn">JP</button>
+            <button className={`lang-btn ${subtitleModeVN?"active":""}`} onClick={()=>setSubtitleModeVN(true)}>VN</button>
+            <button className={`lang-btn ${!subtitleModeVN?"active":""}`} onClick={()=>setSubtitleModeVN(false)}>JP</button>
           </div>
         </div>
 
@@ -198,7 +216,7 @@ export function Listening() {
           <div className="dialogue-row">
             <div className="avatar a-avatar">A</div>
             <div className="bubble">
-              <p className="vn-text"><p className="highlight-text">{currentSubtitle}</p></p>
+              <p className="vn-text"><p className="highlight-text">{subtitleModeVN?currentSubtitle:currentSubtitleJP}</p></p>
               <div className="jp-text-wrapper">
                 <p className="jp-text">
 
