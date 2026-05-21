@@ -8,6 +8,7 @@ import LevelSelectPage from './pages/LevelSelectPage/LevelSelectPage'
 import DictionaryScreen from './pages/DictionaryScreen/DictionaryScreen'
 import ShadowingScreen from './pages/Shadowing/Shadowing'
 import { Listening } from './pages/LessonChoose/ListeningPage/Listening'
+import { Settings } from './pages/Settings/Settings'
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
             <Route index element={<LevelSelectPage />} />
             <Route path="levelselect" element={<LevelSelectPage />} />
             <Route path="dictionary" element={<DictionaryScreen />} />
+            <Route path="settings" element={<Settings />} />
             <Route path="shadowing" element={<ShadowingScreen />} />
             <Route path="lessons" element={<LessonChoose />} />
             <Route path="lessons/:urlLevel" element={<LessonChoose />} />
