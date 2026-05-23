@@ -26,7 +26,7 @@ export function Sidebar() {
 
                     <li>
 
-                        <Link to="/home/levelselect" className="gap-1.5">
+                        <Link to="/home/lessons" className="gap-1.5">
                             <span className="mt-1">{<GraduationCap size={20} />}</span>
 
                             <span className="ml-1.5">レッスン</span>
@@ -45,7 +45,14 @@ export function Sidebar() {
                         </Link>
                     </li>
 
-                    <Link to="/login" className="cursor-pointer flex absolute bottom-4">
+                    <Link 
+                        to="/login" 
+                        className="cursor-pointer flex absolute bottom-4"
+                        onClick={() => {
+                            localStorage.removeItem('access_token');
+                            localStorage.removeItem('userId');
+                        }}
+                    >
                         <span className="mr-2 text-[#645959]"><LogOut scale={24} /></span>
                         <span className="text-2xs text-[#645959]">ログアウト</span>
                     </Link>

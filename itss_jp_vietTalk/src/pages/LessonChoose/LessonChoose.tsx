@@ -215,7 +215,12 @@ export function LessonChoose() {
               <p className="advanced-lesson-description">
                 {advancedLesson.summary?.hiragana}
               </p>
-              <button className="btn-advanced-course">上級コースを始める</button>
+              <button 
+                className="btn-advanced-course" 
+                onClick={() => handleListeningClick(advancedLesson.id)}
+              >
+                上級コースを始める
+              </button>
             </div>
           </div>
         )}
