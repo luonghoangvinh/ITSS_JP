@@ -1,6 +1,10 @@
 import { useNavigate } from "react-router-dom";
-const goToHome = () => {
+export const goToHome = () => {
     const navigate = useNavigate();
     navigate("/");
     };
-export default goToHome;
+
+export const goToLevelSelect=()=>{
+    const navigate = useNavigate();
+    navigate("/home/levelselect");
+}

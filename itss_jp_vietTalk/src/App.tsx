@@ -9,6 +9,8 @@ import DictionaryScreen from './pages/DictionaryScreen/DictionaryScreen'
 import ShadowingScreen from './pages/Shadowing/Shadowing'
 import { Listening } from './pages/LessonChoose/ListeningPage/Listening'
 
+import HomeScreen from './pages/HomePage/HomePage'
+
 function App() {
 
   return (
@@ -20,7 +22,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
 
           <Route path="/home" element={<Mainlayout />}>
-            <Route index element={<LevelSelectPage />} />
+            <Route index element={<HomeScreen/>} />
             <Route path="levelselect" element={<LevelSelectPage />} />
             <Route path="dictionary" element={<DictionaryScreen />} />
             <Route path="shadowing" element={<ShadowingScreen />} />
