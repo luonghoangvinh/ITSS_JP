@@ -20,11 +20,6 @@ export function Login() {
     }));
   };
 
-  /*const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Log in:', formData);
-    navigate('/home');
-  };*/
   const handleSubmit = async (
   e: React.FormEvent,
 ) => {

@@ -26,6 +26,9 @@ export class LessonsService {
         if (!lesson) throw new NotFoundException(`Lesson #${id} not found`);
         return lesson;
     }
+    async findByLevel(level: string) {
+        return this.lessonRepository.find({ where: { level } });
+    }
 
     async update(id: number, updateLessonDto: UpdateLessonDto) {
         const lesson = await this.findOne(id);

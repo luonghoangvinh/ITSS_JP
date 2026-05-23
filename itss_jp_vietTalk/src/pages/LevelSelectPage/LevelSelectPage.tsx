@@ -6,7 +6,7 @@ const PRIMARY = "#e8505b";
 const LEVELS: LevelSelectType[] = [
     {
         id: "A",
-        tag: "BEGINNER",
+        tag: "Beginner",
         tagColor: { bg: "#e1f5ee", text: "#0f6e56" },
         headerBg: "#e8f5ef",
         emoji: "🥗",
@@ -18,7 +18,7 @@ const LEVELS: LevelSelectType[] = [
     },
     {
         id: "B",
-        tag: "INTERMEDIATE",
+        tag: "Intermediate",
         tagColor: { bg: "#faeeda", text: "#854f0b" },
         headerBg: "#fef3ea",
         emoji: "🍔",
@@ -30,7 +30,7 @@ const LEVELS: LevelSelectType[] = [
     },
     {
         id: "C",
-        tag: "ADVANCED",
+        tag: "Advanced",
         tagColor: { bg: "#e6f1fb", text: "#185fa5" },
         headerBg: "#eaf2fb",
         emoji: "🧑‍💼",
@@ -125,9 +125,9 @@ function LevelCard( { level }: LevelCardProps) {
                     {level.desc}
                 </div>
 
-                {level.unlocked ? (
+                {true ? (
                     <button
-                    onClick={()=>navigate("/home/lessons")}
+                    onClick={()=>navigate(`/home/lessons/${level.tag}`)}
                         style={{
                             width: "100%",
                             background: PRIMARY,

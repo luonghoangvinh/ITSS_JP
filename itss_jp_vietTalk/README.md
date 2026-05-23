@@ -7,6 +7,7 @@ trong terminal gõ:npm install react-router-dom
 ## thư viện này để có icon dùng trong project
 npm install lucide-react
 
+npm install framer-motion
 
 
 ## cách chạy project này (frontend)

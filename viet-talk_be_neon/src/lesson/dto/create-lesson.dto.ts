@@ -8,5 +8,7 @@ export class CreateLessonDto {
     video?: string;
     image?: string;
     rating?: number;
+
+    lessonContentJp?: string;
 }
 

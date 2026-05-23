@@ -5,8 +5,10 @@ import { Login } from './pages/Login/LogIn'
 import { SignUp } from './pages/Signup/SignUp'
 import { LessonChoose } from './pages/LessonChoose/LessonChoose'
 import LevelSelectPage from './pages/LevelSelectPage/LevelSelectPage'
+import DictionaryScreen from './pages/DictionaryScreen/DictionaryScreen'
 import LevelAssessment from './pages/LevelAssessment/LevelAssessment'
-import Shadowing from './pages/Shadowing/Shadowing'
+import ShadowingScreen from './pages/Shadowing/Shadowing'
+import { Listening } from './pages/LessonChoose/ListeningPage/Listening'
 
 function App() {
 
@@ -20,8 +22,12 @@ function App() {
 
           <Route path="/home" element={<Mainlayout />}>
             <Route index element={<LevelSelectPage />} />
+            <Route path="levelselect" element={<LevelSelectPage />} />
+            <Route path="dictionary" element={<DictionaryScreen />} />
+            <Route path="shadowing" element={<ShadowingScreen />} />
             <Route path="lessons" element={<LessonChoose />} />
-            <Route path="shadowing" element={<Shadowing />} />
+            <Route path="lessons/:urlLevel" element={<LessonChoose />} />
+            <Route path="listening" element={<Listening />} />
             <Route path="levelassessment" element={<LevelAssessment />} />
           </Route>
         </Routes>

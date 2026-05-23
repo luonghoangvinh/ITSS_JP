@@ -1,0 +1,11 @@
+.test{
+    display:flex;
+    gap: 4;
+    min-height: 64;
+    border-style: solid;
+    background-color: aliceblue;
+    padding: 12px;
+    border-radius: 0.5rem;
+    margin-top: 1.5rem;
+}
+
