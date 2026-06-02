@@ -60,6 +60,14 @@ export default function LevelAssessment() {
 
   const handleSpeedChange = (value: SetStateAction<number>) => setSpeed(value);
 
+  const handleButtonClick = (progress: number) => {
+    if (progress === 100) {
+      navigate('/home/leveltest');
+    } else {
+      navigate('/home/lessons');
+    }
+  };
+
   return (
     <div className="level-assessment-container">
       <div className="level-assessment-content">
@@ -178,7 +186,7 @@ export default function LevelAssessment() {
                   <div className="w-36 h-2 overflow-hidden rounded-full bg-slate-200"><div className={`h-full rounded-full ${progressBarClass(item.status)}`} style={{ width: `${item.progress}%` }} /></div>
                   <span className="text-xs text-slate-500 w-8 text-right">{item.progress}%</span>
                 </div>
-                <button onClick={() => navigate('/home/lessons')} className={`rounded-full px-5 py-2 text-xs font-semibold text-white transition shrink-0 shadow-sm flex items-center gap-1 ${item.buttonColor} hover:brightness-90`}>
+                <button onClick={() => handleButtonClick(item.progress)} className={`rounded-full px-5 py-2 text-xs font-semibold text-white transition shrink-0 shadow-sm flex items-center gap-1 ${item.buttonColor} hover:brightness-90`}>
                   <span>{item.buttonLabel}</span>
                   <span className="bg-white/20 rounded-full px-1.5 py-0.5 text-[10px]">{item.progress}%</span>
                 </button>

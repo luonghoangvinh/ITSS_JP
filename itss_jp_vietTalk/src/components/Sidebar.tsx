@@ -36,7 +36,19 @@ export function Sidebar() {
                     <li>
                         <NavLink to="/home/levelselect" className={({ isActive }) => `gap-1.5 ${isActive ? "active" : ""}`}>
                             <span className="mt-1"><Rows3 size={20} /></span>
+                            <span className="ml-1.5">レベル選択</span>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/home/levelassessment" className={({ isActive }) => `gap-1.5 ${isActive ? "active" : ""}`}>
+                            <span className="mt-1"><Rows3 size={20} /></span>
                             <span className="ml-1.5">レベル判定</span>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/home/leveltest" className={({ isActive }) => `gap-1.5 ${isActive ? "active" : ""}`}>
+                            <span className="mt-1"><BookOpen size={20} /></span>
+                            <span className="ml-1.5">レベルテスト</span>
                         </NavLink>
                     </li>
                     <li className="logout-link">

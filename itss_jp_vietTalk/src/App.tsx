@@ -7,6 +7,7 @@ import { LessonChoose } from './pages/LessonChoose/LessonChoose'
 import LevelSelectPage from './pages/LevelSelectPage/LevelSelectPage'
 import DictionaryScreen from './pages/DictionaryScreen/DictionaryScreen'
 import LevelAssessment from './pages/LevelAssessment/LevelAssessment'
+import LevelTest from './pages/LevelTest/LevelTest'
 import ShadowingScreen from './pages/Shadowing/Shadowing'
 import { Listening } from './pages/LessonChoose/ListeningPage/Listening'
 
@@ -29,6 +30,7 @@ function App() {
             <Route path="lessons/:urlLevel" element={<LessonChoose />} />
             <Route path="listening" element={<Listening />} />
             <Route path="levelassessment" element={<LevelAssessment />} />
+            <Route path="leveltest" element={<LevelTest />} />
           </Route>
         </Routes>
       </BrowserRouter>

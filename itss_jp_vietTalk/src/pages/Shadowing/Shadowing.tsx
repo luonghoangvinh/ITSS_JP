@@ -3,7 +3,6 @@ import { useEffect, useRef, useState } from "react";
 import { Play, Mic, RotateCcw, Pause } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 //import { fetchDefaultLesson, submitRecording } from "../../api/shadowing";
-// @ts-ignore: no type declarations for srt-parser-2
 import SrtParser2 from 'srt-parser-2';
 import timeToSeconds from "../../utils/timeToSeconds";
 //import type { Lesson, Phrase } from "../../api/shadowing";

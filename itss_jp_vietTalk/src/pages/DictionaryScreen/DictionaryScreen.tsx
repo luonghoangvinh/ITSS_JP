@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type TranslateType from "../../types/TranslateType";
 import SearchList from "../../components/SearchList";
-import { Search } from "lucide-react";
 import SearchResultShow from "../../components/SearchResultShow";
 
 
