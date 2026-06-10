@@ -149,7 +149,7 @@ const ShadowingScreen = () => {
   };*/
 
   const handleNext = () => setCurrentIndex(i => Math.min((subtitle?.length ?? 1) - 1, i + 1));
-  const handlePrev = () => setCurrentIndex(i => Math.max(0, i - 1));
+  //const handlePrev = () => setCurrentIndex(i => Math.max(0, i - 1));
 
   const startRecording = async () => {
     if (!navigator.mediaDevices) return alert('Recording not supported');
@@ -158,7 +158,7 @@ const ShadowingScreen = () => {
     recordedChunksRef.current = [];
     mr.ondataavailable = (e) => { if (e.data.size) recordedChunksRef.current.push(e.data); };
     mr.onstop = async () => {
-      const blob = new Blob(recordedChunksRef.current, { type: 'audio/webm' });
+      //const blob = new Blob(recordedChunksRef.current, { type: 'audio/webm' });
       try {
         console.log("try recording");
         /*if (currentPhrase) {

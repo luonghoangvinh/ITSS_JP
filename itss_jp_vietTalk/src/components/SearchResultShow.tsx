@@ -1,13 +1,13 @@
 import { Lightbulb, Volume2 } from "lucide-react";
 import type TranslateType from "../types/TranslateType";
 import "./SearchResultShow.css"
-import { useState } from "react";
+//import { useState } from "react";
 
 type SearchResultShowProps = {
     result: TranslateType;
 }
 export default function SearchResultShow({ result }: SearchResultShowProps) {
-    const [searchResultShow, setSearchResultShow] = useState<TranslateType>(result);
+    //const [searchResultShow, setSearchResultShow] = useState<TranslateType>(result);
     return (
         <div className="flex flex-col p-1 bg-white gap-4 w-full">
             <div className="flex items-center gap-8 bg-[#FFF1F1] w-full pl-8">

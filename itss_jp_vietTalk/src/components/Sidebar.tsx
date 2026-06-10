@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "./Sidebar.css";
 import { BookOpen, GraduationCap, House, LogOut, Rows3, Settings } from "lucide-react";
-import { div } from "framer-motion/client";
+//import { div } from "framer-motion/client";
 export function Sidebar() {
     return (
         <div className="Sidebar">
