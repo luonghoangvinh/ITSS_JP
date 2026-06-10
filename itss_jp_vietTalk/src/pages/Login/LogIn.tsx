@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Lock, User } from 'lucide-react';
-import './Login.css';
+import './LogIn.css';
 import vietTalkLogoImage from '../../assets/Viettalkpic.jpg';
 
 export function Login() {
