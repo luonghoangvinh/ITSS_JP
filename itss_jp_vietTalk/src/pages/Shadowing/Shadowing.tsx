@@ -99,7 +99,7 @@ const ShadowingScreen = () => {
       const currentTextJP = subtitleJP.find((sub) =>
         current >= sub.startTime && current <= sub.endTime
       )
-      if(preSubtitle!=currentText.text) setCurrentIndex(currentIndex+1);
+      if(currentText&&preSubtitle!=currentText.text) setCurrentIndex(currentIndex+1);
       setCurrentSubtitle(currentText?.text || "");
       setCurrentSubtitleJP(currentTextJP?.text || "");
 

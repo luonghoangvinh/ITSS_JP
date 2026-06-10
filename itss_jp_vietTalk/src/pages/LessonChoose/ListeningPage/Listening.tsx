@@ -29,7 +29,7 @@ export function Listening() {
 const API_BASE = import.meta.env.VITE_API_URL || '';
   useEffect(() => {
     if (lessonId) {
-      fetch(`${API_BASE}/api/lessons/${lessonId}`)
+      fetch(`${API_BASE}/lessons/${lessonId}`)
         .then(res => res.json())
         .then(data => {
           setLessonData(data);
@@ -216,7 +216,7 @@ const API_BASE = import.meta.env.VITE_API_URL || '';
           <div className="dialogue-row">
             <div className="avatar a-avatar">A</div>
             <div className="bubble">
-              <p className="vn-text"><p className="highlight-text">{subtitleModeVN?currentSubtitle:currentSubtitleJP}</p></p>
+              <div className="vn-text"><p className="highlight-text">{subtitleModeVN?currentSubtitle:currentSubtitleJP}</p></div>
               <div className="jp-text-wrapper">
                 <p className="jp-text">
 
