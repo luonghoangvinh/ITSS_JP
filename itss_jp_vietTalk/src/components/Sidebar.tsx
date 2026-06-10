@@ -22,7 +22,7 @@ export function Sidebar() {
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/home/lessons" className={({ isActive }) => `gap-1.5 ${isActive ? "active" : ""}`}>
+                        <NavLink to="/home/levelselect" className={({ isActive }) => `gap-1.5 ${isActive ? "active" : ""}`}>
                             <span className="mt-1"><GraduationCap size={20} /></span>
                             <span className="ml-1.5">レッスン</span>
                         </NavLink>
@@ -51,12 +51,18 @@ export function Sidebar() {
                             <span className="ml-1.5">レベルテスト</span>
                         </NavLink>
                     </li>
-                    <li className="logout-link">
-                        <Link to="/login" className="cursor-pointer flex absolute bottom-4">
-                            <span className="mr-2 text-[#645959]"><LogOut scale={24} /></span>
-                            <span className="text-2xs text-[#645959]">ログアウト</span>
-                        </Link>
-                    </li>
+
+                    <Link 
+                        to="/login" 
+                        className="cursor-pointer flex absolute bottom-4"
+                        onClick={() => {
+                            localStorage.removeItem('access_token');
+                            localStorage.removeItem('userId');
+                        }}
+                    >
+                        <span className="mr-2 text-[#645959]"><LogOut scale={24} /></span>
+                        <span className="text-2xs text-[#645959]">ログアウト</span>
+                    </Link>
                 </ul>
             </nav>
         </div>

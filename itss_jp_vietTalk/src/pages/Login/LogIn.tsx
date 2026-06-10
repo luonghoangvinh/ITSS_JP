@@ -53,6 +53,27 @@ export function Login() {
       data.access_token,
     );
 
+    // Giải mã token để lưu userId vào localStorage
+    try {
+      const base64Url = data.access_token.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const jsonPayload = decodeURIComponent(
+        window
+          .atob(base64)
+          .split('')
+          .map(function (c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+          })
+          .join('')
+      );
+      const payload = JSON.parse(jsonPayload);
+      if (payload && payload.sub) {
+        localStorage.setItem('userId', payload.sub.toString());
+      }
+    } catch (e) {
+      console.error('Không thể giải mã token', e);
+    }
+
     navigate('/home');
   } catch (error) {
     console.error(error);
@@ -150,4 +171,3 @@ export function Login() {
     </div>
   );
 }
-
