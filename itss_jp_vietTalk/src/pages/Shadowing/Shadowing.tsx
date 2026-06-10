@@ -30,6 +30,8 @@ const ShadowingScreen = () => {
   const [currentSubtitle, setCurrentSubtitle] = useState('');
   const [subtitleJP, setSubtitleJP] = useState<any[]>([]);
   const [currentSubtitleJP, setCurrentSubtitleJP] = useState('');
+
+  const API_BASE = import.meta.env.VITE_API_URL || '';
   /*useEffect(() => {
     // load default lesson
     fetchDefaultLesson().then(l => setLesson(l)).catch(() => {
@@ -43,7 +45,7 @@ const ShadowingScreen = () => {
   }, []);*/
   useEffect(() => {
     if (lessonId) {
-      fetch(`/api/lessons/${lessonId}`)
+      fetch(`${API_BASE}/api/lessons/${lessonId}`)
         .then(res => res.json())
         .then(data => {
           setLesson(data);

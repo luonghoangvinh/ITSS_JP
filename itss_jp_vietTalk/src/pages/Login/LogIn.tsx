@@ -11,7 +11,7 @@ export function Login() {
   });
 
   const navigate = useNavigate();
-
+  const API_BASE = import.meta.env.VITE_API_URL || '';
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -27,7 +27,7 @@ export function Login() {
 
   try {
     const response = await fetch(
-      '/api/auth/login',
+      `${API_BASE}/api/auth/login`,
       {
         method: 'POST',
 

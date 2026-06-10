@@ -12,7 +12,7 @@ export interface Lesson {
   phrases: Phrase[];
 }
 
-const API_BASE = import.meta.env.VITE_API_BASE || '';
+const API_BASE = import.meta.env.VITE_API_URL || '';
 
 export async function fetchLesson(lessonId: string): Promise<Lesson> {
   const res = await fetch(`${API_BASE}/api/shadowing/lessons/${lessonId}`);

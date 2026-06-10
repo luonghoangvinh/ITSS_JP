@@ -26,10 +26,10 @@ export function Listening() {
 
   const lessonId = location.state?.lessonId;
 
-
+const API_BASE = import.meta.env.VITE_API_URL || '';
   useEffect(() => {
     if (lessonId) {
-      fetch(`/api/lessons/${lessonId}`)
+      fetch(`${API_BASE}/api/lessons/${lessonId}`)
         .then(res => res.json())
         .then(data => {
           setLessonData(data);
