@@ -13,12 +13,18 @@ const mockData = {
     vocabulary: 61,
   },
   items: [
-    { id: '1', title: '経済トピック — 北部ベトナム語聴き取りテスト', icon: 'N', category: '経済', status: 'completed', progress: 100, buttonLabel: '学習を開始', buttonColor: 'bg-[#0f6e56]' },
-    { id: '2', title: '辞書 — ユニット 2 語順テスト', icon: 'Y1', category: '辞書', status: 'inProgress', progress: 45, buttonLabel: '学習を開始', buttonColor: 'bg-amber-500' },
-    { id: '3', title: '食事のマナー — 北部ベトナム語聴き取りテスト', icon: 'YN', category: '文化', status: 'needsReview', progress: 30, buttonLabel: '学習を開始', buttonColor: 'bg-rose-500' },
-    { id: '4', title: 'ビジネスのあいさつ — 模擬会話', icon: '□', category: 'ビジネス', status: 'inProgress', progress: 75, buttonLabel: '学習を開始', buttonColor: 'bg-amber-500' },
-    { id: '5', title: 'テトの伝統 — 1.2k 受信者数', icon: 'S', category: '文化', status: 'completed', progress: 100, buttonLabel: '学習を開始', buttonColor: 'bg-[#0f6e56]' },
-    { id: '6', title: 'テトの伝統 — 1.2k 受信者数', icon: 'Q', category: '文化', status: 'completed', progress: 100, buttonLabel: '学習を開始', buttonColor: 'bg-[#0f6e56]' },
+    { id: '6', title: 'デジタル社会テスト', lessonName: 'テクノロジーと現代生活', icon: 'D', topic: 'テクノロジーと現代生活', status: 'inProgress', progress: 40, buttonLabel: 'テストを受ける', buttonColor: 'bg-[#0f6e56]' },
+    { id: '7', title: '日本文化理解テスト', lessonName: '異文化コミュニケーション', icon: 'J', topic: '異文化コミュニケーション', status: 'inProgress', progress: 25, buttonLabel: 'テストを受ける', buttonColor: 'bg-amber-500' },
+    { id: '12', title: '趣味と活動テスト', lessonName: '個人の興味とライフスタイル', icon: 'H', topic: '個人の興味とライフスタイル', status: 'needsReview', progress: 10, buttonLabel: 'テストを受ける', buttonColor: 'bg-rose-500' },
+    { id: '8', title: '環境問題テスト', lessonName: '地球環境と持続可能性', icon: 'E', topic: '地球環境と持続可能性', status: 'completed', progress: 100, buttonLabel: 'テストを受ける', buttonColor: 'bg-[#0f6e56]' },
+    { id: '11', title: '日常生活の会話テスト', lessonName: '生活コミュニケーション', icon: 'L', topic: '生活コミュニケーション', status: 'inProgress', progress: 55, buttonLabel: 'テストを受ける', buttonColor: 'bg-amber-500' },
+    { id: '1', title: '文法コーヒーテスト', lessonName: '日常文法とカジュアル表現', icon: 'G', topic: '日常文法とカジュアル表現', status: 'inProgress', progress: 20, buttonLabel: 'テストを受ける', buttonColor: 'bg-rose-500' },
+    { id: '5', title: '仕事の面接テスト', lessonName: 'キャリアと就職活動', icon: 'C', topic: 'キャリアと就職活動', status: 'inProgress', progress: 35, buttonLabel: 'テストを受ける', buttonColor: 'bg-amber-500' },
+    { id: '4', title: '旅行文法テスト', lessonName: '旅行と移動', icon: 'T', topic: '旅行と移動', status: 'inProgress', progress: 50, buttonLabel: 'テストを受ける', buttonColor: 'bg-amber-500' },
+    { id: '3', title: 'カフェ会話テスト', lessonName: '飲食店でのコミュニケーション', icon: 'F', topic: '飲食店でのコミュニケーション', status: 'completed', progress: 100, buttonLabel: 'テストを受ける', buttonColor: 'bg-[#0f6e56]' },
+    { id: '9', title: '経済と社会テスト', lessonName: '社会構造と経済発展', icon: 'S', topic: '社会構造と経済発展', status: 'inProgress', progress: 30, buttonLabel: 'テストを受ける', buttonColor: 'bg-amber-500' },
+    { id: '10', title: 'AIと未来テスト', lessonName: '人工知能とテクノロジーの発展', icon: 'A', topic: '人工知能とテクノロジーの発展', status: 'inProgress', progress: 45, buttonLabel: 'テストを受ける', buttonColor: 'bg-amber-500' },
+    { id: '2', title: '伝統音楽テスト', lessonName: 'ベトナムの文化と音楽', icon: 'M', topic: 'ベトナムの文化と音楽', status: 'inProgress', progress: 15, buttonLabel: 'テストを受ける', buttonColor: 'bg-amber-500' },
   ],
 };
 
@@ -49,6 +55,19 @@ function progressBarClass(status: string) {
   }
 }
 
+function getButtonProps(status: string) {
+  switch (status) {
+    case 'completed':
+      return { label: 'テストを受ける', color: 'bg-[#0f6e56]' };
+    case 'inProgress':
+      return { label: '学習を続ける', color: 'bg-amber-500' };
+    case 'needsReview':
+      return { label: '復習する', color: 'bg-rose-500' };
+    default:
+      return { label: 'テストを受ける', color: 'bg-slate-400' };
+  }
+}
+
 export default function LevelAssessment() {
   const navigate = useNavigate();
   const [speed, setSpeed] = useState(mockData.audioSpeed);
@@ -60,9 +79,9 @@ export default function LevelAssessment() {
 
   const handleSpeedChange = (value: SetStateAction<number>) => setSpeed(value);
 
-  const handleButtonClick = (progress: number) => {
+  const handleButtonClick = (lessonName: string, progress: number) => {
     if (progress === 100) {
-      navigate('/home/leveltest');
+      navigate(`/home/leveltest/${encodeURIComponent(lessonName)}`);
     } else {
       navigate('/home/lessons');
     }
@@ -175,8 +194,8 @@ export default function LevelAssessment() {
                   {item.icon}
                 </div>
                 <div className="flex-1 min-w-[180px]">
-                  <div className="flex flex-wrap items-center gap-2 mb-0.5">
-                    <span className="text-[10px] font-semibold text-slate-400 uppercase">{item.category}</span>
+                    <div className="flex flex-wrap items-center gap-2 mb-0.5">
+                    <span className="text-[10px] font-semibold text-slate-400 uppercase">{item.lessonName}</span>
                     <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${statusBadgeClass(item.status)}`}>{statusLabel(item.status)}</span>
                   </div>
                   <p className="text-sm font-bold text-slate-900">{item.title}</p>
@@ -186,10 +205,15 @@ export default function LevelAssessment() {
                   <div className="w-36 h-2 overflow-hidden rounded-full bg-slate-200"><div className={`h-full rounded-full ${progressBarClass(item.status)}`} style={{ width: `${item.progress}%` }} /></div>
                   <span className="text-xs text-slate-500 w-8 text-right">{item.progress}%</span>
                 </div>
-                <button onClick={() => handleButtonClick(item.progress)} className={`rounded-full px-5 py-2 text-xs font-semibold text-white transition shrink-0 shadow-sm flex items-center gap-1 ${item.buttonColor} hover:brightness-90`}>
-                  <span>{item.buttonLabel}</span>
-                  <span className="bg-white/20 rounded-full px-1.5 py-0.5 text-[10px]">{item.progress}%</span>
-                </button>
+                {(() => {
+                  const btn = getButtonProps(item.status);
+                  return (
+                    <button onClick={() => handleButtonClick(item.lessonName, item.progress)} className={`rounded-full px-5 py-2 text-xs font-semibold text-white transition shrink-0 shadow-sm flex items-center gap-1 ${btn.color} hover:brightness-90`}>
+                      <span>{btn.label}</span>
+                      <span className="bg-white/20 rounded-full px-1.5 py-0.5 text-[10px]">{item.progress}%</span>
+                    </button>
+                  );
+                })()}
               </div>
             ))}
           </div>

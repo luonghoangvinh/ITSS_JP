@@ -220,6 +220,7 @@
   border-top: 1px solid #f0f0f0;
 }
 
+.btn-test,
 .btn-listening,
 .btn-shadowing {
   flex: 1;
@@ -234,8 +235,17 @@
   background-color: #e8707f;
 }
 
+.btn-test {
+  background-color: #0f6e56;
+}
+
+.btn-test:hover {
+  background-color: #0d5b4a;
+}
+
 .btn-listening:hover,
-.btn-shadowing:hover {
+.btn-shadowing:hover,
+.btn-test:hover {
   background-color: #d15f6d;
   transform: scale(1.05);
 }

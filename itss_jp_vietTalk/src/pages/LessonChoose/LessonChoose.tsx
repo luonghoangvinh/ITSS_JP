@@ -106,6 +106,11 @@ export function LessonChoose() {
     console.log(`Shadowing for lesson ID: ${lessonId}`);
     navigate('/home/shadowing', { state: { lessonId } });
   };
+
+  const handleTopicTestClick = (lessonName: string) => {
+    const encoded = encodeURIComponent(lessonName || '総合');
+    navigate(`/home/leveltest/${encoded}`);
+  };
   return (
     <div className="lesson-choose-container">
       {/* Top Header Bar with Search, Notification, and Settings */}
@@ -184,6 +189,12 @@ export function LessonChoose() {
 
                 {/* Action Buttons */}
                 <div className="lesson-buttons">
+                  <button
+                    className="btn-test"
+                    onClick={() => handleTopicTestClick(lesson.lessonName)}
+                  >
+                    テスト
+                  </button>
                   <button
                     className="btn-listening"
                     onClick={() => handleListeningClick(lesson.id)}

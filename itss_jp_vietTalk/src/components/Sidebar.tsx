@@ -22,7 +22,7 @@ export function Sidebar() {
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/home/levelselect" className={({ isActive }) => `gap-1.5 ${isActive ? "active" : ""}`}>
+                        <NavLink to="/home/lessons" className={({ isActive }) => `gap-1.5 ${isActive ? "active" : ""}`}>
                             <span className="mt-1"><GraduationCap size={20} /></span>
                             <span className="ml-1.5">レッスン</span>
                         </NavLink>

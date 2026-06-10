@@ -35,6 +35,7 @@ function App() {
             <Route path="listening" element={<Listening />} />
             <Route path="levelassessment" element={<LevelAssessment />} />
             <Route path="leveltest" element={<LevelTest />} />
+            <Route path="leveltest/:lessonName" element={<LevelTest />} />
           </Route>
         </Routes>
       </BrowserRouter>
