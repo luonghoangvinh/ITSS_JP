@@ -8,7 +8,7 @@ export const getAccount = async (id: number) => {
 };
 
 export const updateAccount = async (id: number, data: any) => {
-  const response = await fetch(`${API_BASE}/api/accounts/${id}`, {
+  const response = await fetch(`${API_BASE}/accounts/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
@@ -20,7 +20,7 @@ export const updateAccount = async (id: number, data: any) => {
 };
 
 export const deleteAccount = async (id: number) => {
-  const response = await fetch(`${API_BASE}/api/accounts/${id}`, {
+  const response = await fetch(`${API_BASE}/accounts/${id}`, {
     method: 'DELETE',
   });
   if (!response.ok) {

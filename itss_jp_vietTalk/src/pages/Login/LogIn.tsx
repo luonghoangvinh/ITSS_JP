@@ -27,7 +27,7 @@ export function Login() {
 
   try {
     const response = await fetch(
-      `${API_BASE}/api/auth/login`,
+      `${API_BASE}/auth/login`,
       {
         method: 'POST',
 

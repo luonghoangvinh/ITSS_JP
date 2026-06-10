@@ -39,7 +39,7 @@ export function LessonChoose() {
     const fetchLessons = async () => {
       try {
         setIsLoading(true);
-        const url = urlLevel ? `${API_BASE}/api/lessons/level/${urlLevel}` : '/api/lessons';
+        const url = urlLevel ? `${API_BASE}/lessons/level/${urlLevel}` : '/api/lessons';
         const res = await fetch(url);
 
         if (!res.ok) {

@@ -45,7 +45,7 @@ const ShadowingScreen = () => {
   }, []);*/
   useEffect(() => {
     if (lessonId) {
-      fetch(`${API_BASE}/api/lessons/${lessonId}`)
+      fetch(`${API_BASE}/lessons/${lessonId}`)
         .then(res => res.json())
         .then(data => {
           setLesson(data);

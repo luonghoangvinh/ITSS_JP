@@ -32,7 +32,7 @@ export function SignUp() {
     }
 
     try {
-      const response = await fetch(`${API_BASE}/api/auth/signup`, {
+      const response = await fetch(`${API_BASE}/auth/signup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
