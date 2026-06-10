@@ -4,7 +4,8 @@ export const getAccount = async (id: number) => {
   if (!response.ok) {
     throw new Error('Failed to fetch account');
   }
-  return response.json();
+  const data= await response.json();
+  return data;
 };
 
 export const updateAccount = async (id: number, data: any) => {
