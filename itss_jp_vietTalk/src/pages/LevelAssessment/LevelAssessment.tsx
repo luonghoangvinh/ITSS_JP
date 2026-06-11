@@ -13,12 +13,12 @@ const mockData = {
     vocabulary: 61,
   },
   items: [
-    { id: '1', title: '経済トピック — 北部ベトナム語聴き取りテスト', icon: 'N', category: '経済', status: 'completed', progress: 100, buttonLabel: '学習を開始', buttonColor: 'bg-[#0f6e56]' },
-    { id: '2', title: '辞書 — ユニット 2 語順テスト', icon: 'Y1', category: '辞書', status: 'inProgress', progress: 45, buttonLabel: '学習を開始', buttonColor: 'bg-amber-500' },
-    { id: '3', title: '食事のマナー — 北部ベトナム語聴き取りテスト', icon: 'YN', category: '文化', status: 'needsReview', progress: 30, buttonLabel: '学習を開始', buttonColor: 'bg-rose-500' },
-    { id: '4', title: 'ビジネスのあいさつ — 模擬会話', icon: '□', category: 'ビジネス', status: 'inProgress', progress: 75, buttonLabel: '学習を開始', buttonColor: 'bg-amber-500' },
-    { id: '5', title: 'テトの伝統 — 1.2k 受信者数', icon: 'S', category: '文化', status: 'completed', progress: 100, buttonLabel: '学習を開始', buttonColor: 'bg-[#0f6e56]' },
-    { id: '6', title: 'テトの伝統 — 1.2k 受信者数', icon: 'Q', category: '文化', status: 'completed', progress: 100, buttonLabel: '学習を開始', buttonColor: 'bg-[#0f6e56]' },
+    { id: '1', lessonName: '経済', title: '経済トピック — 北部ベトナム語テスト', icon: 'N', category: '経済', status: 'completed', progress: 100 },
+    { id: '2', lessonName: '辞書', title: '辞書トピック — 語順練習', icon: 'Y1', category: '辞書', status: 'inProgress', progress: 45 },
+    { id: '3', lessonName: '文化', title: '文化トピック — 食事マナー', icon: 'YN', category: '文化', status: 'needsReview', progress: 30 },
+    { id: '4', lessonName: 'ビジネス', title: 'ビジネス挨拶 — 模擬会話', icon: '□', category: 'ビジネス', status: 'inProgress', progress: 75 },
+    { id: '5', lessonName: '文化', title: 'テトの伝統 — 文化理解', icon: 'S', category: '文化', status: 'completed', progress: 100 },
+    { id: '6', lessonName: '文化', title: 'テトの伝統 — 文化理解 2', icon: 'Q', category: '文化', status: 'completed', progress: 100 },
   ],
 };
 
@@ -49,6 +49,19 @@ function progressBarClass(status: string) {
   }
 }
 
+function getButtonProps(status: string) {
+  switch (status) {
+    case 'completed':
+      return { label: 'テストを受ける', color: 'bg-[#0f6e56]' };
+    case 'inProgress':
+      return { label: '学習を続ける', color: 'bg-amber-500' };
+    case 'needsReview':
+      return { label: '復習する', color: 'bg-rose-500' };
+    default:
+      return { label: '始める', color: 'bg-slate-500' };
+  }
+}
+
 export default function LevelAssessment() {
   const navigate = useNavigate();
   const [speed, setSpeed] = useState(mockData.audioSpeed);
@@ -60,12 +73,8 @@ export default function LevelAssessment() {
 
   const handleSpeedChange = (value: SetStateAction<number>) => setSpeed(value);
 
-  const handleButtonClick = (progress: number) => {
-    if (progress === 100) {
-      navigate('/home/leveltest');
-    } else {
-      navigate('/home/lessons');
-    }
+  const handleButtonClick = (lessonName: string) => {
+    navigate(`/home/leveltest/${encodeURIComponent(lessonName)}`);
   };
 
   return (
@@ -186,8 +195,8 @@ export default function LevelAssessment() {
                   <div className="w-36 h-2 overflow-hidden rounded-full bg-slate-200"><div className={`h-full rounded-full ${progressBarClass(item.status)}`} style={{ width: `${item.progress}%` }} /></div>
                   <span className="text-xs text-slate-500 w-8 text-right">{item.progress}%</span>
                 </div>
-                <button onClick={() => handleButtonClick(item.progress)} className={`rounded-full px-5 py-2 text-xs font-semibold text-white transition shrink-0 shadow-sm flex items-center gap-1 ${item.buttonColor} hover:brightness-90`}>
-                  <span>{item.buttonLabel}</span>
+                <button onClick={() => handleButtonClick(item.lessonName)} className={`rounded-full px-5 py-2 text-xs font-semibold text-white transition shrink-0 shadow-sm flex items-center gap-1 ${getButtonProps(item.status).color} hover:brightness-90`}>
+                  <span>{getButtonProps(item.status).label}</span>
                   <span className="bg-white/20 rounded-full px-1.5 py-0.5 text-[10px]">{item.progress}%</span>
                 </button>
               </div>

@@ -33,6 +33,10 @@ export function LessonChoose() {
   const navigate = useNavigate();
   const { urlLevel } = useParams();
 
+  const handleTopicTestClick = (lessonName: string) => {
+    navigate(`/home/leveltest/${encodeURIComponent(lessonName)}`);
+  };
+
   useEffect(() => {
     const fetchLessons = async () => {
       try {
@@ -195,6 +199,15 @@ export function LessonChoose() {
                     onClick={() => handleShadowingClick(lesson.id)}
                   >
                     シャドウイング
+                  </button>
+                  <button
+                    className="btn-topic-test"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleTopicTestClick(lesson.lessonName);
+                    }}
+                  >
+                    テスト
                   </button>
                 </div>
               </div>

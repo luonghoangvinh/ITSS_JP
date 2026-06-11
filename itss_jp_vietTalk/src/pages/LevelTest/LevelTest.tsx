@@ -1,51 +1,51 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LevelTest.css';
-import { Volume2 } from 'lucide-react';
+// UI icons removed for audio control
 
 // Mock test data
 const mockTestData = {
-  title: 'レベルテスト',
+  title: 'Bài kiểm tra trình độ',
   totalQuestions: 10,
   timeLimit: 600, // 10 minutes in seconds
   questions: [
     {
       id: 1,
-      question: '音声を聴いて、正しい意味を選んでください。',
-      audioUrl: '/audio/question1.mp3',
+      question: 'Đọc đoạn sau và chọn ý nghĩa đúng của từ/đoạn được gạch dưới.',
+      prompt: 'Đoạn: "Công ty đó đóng góp lớn cho sự phát triển kinh tế địa phương."',
       options: [
-        { id: 'a', text: '経済的な', isCorrect: true },
-        { id: 'b', text: '文化的な', isCorrect: false },
-        { id: 'c', text: '社会的な', isCorrect: false },
-        { id: 'd', text: '政治的な', isCorrect: false },
+        { id: 'a', text: 'Về mặt kinh tế', isCorrect: true },
+        { id: 'b', text: 'Về mặt văn hóa', isCorrect: false },
+        { id: 'c', text: 'Về mặt xã hội', isCorrect: false },
+        { id: 'd', text: 'Về mặt chính trị', isCorrect: false },
       ],
     },
     {
       id: 2,
-      question: '次の文に最も適切な単語を選んでください。',
-      audioUrl: '/audio/question2.mp3',
+      question: 'Chọn từ phù hợp nhất để hoàn thành câu dưới đây.',
+      prompt: 'Hoàn thành câu: "Biện pháp này được chứng minh là rất ___ đối với người dùng."',
       options: [
-        { id: 'a', text: '重要', isCorrect: false },
-        { id: 'b', text: '有効', isCorrect: true },
-        { id: 'c', text: '有名', isCorrect: false },
-        { id: 'd', text: '有害', isCorrect: false },
+        { id: 'a', text: 'Quan trọng', isCorrect: false },
+        { id: 'b', text: 'Có hiệu lực', isCorrect: true },
+        { id: 'c', text: 'Nổi tiếng', isCorrect: false },
+        { id: 'd', text: 'Có hại', isCorrect: false },
       ],
     },
     {
       id: 3,
-      question: '音声の内容から推測される情報を選んでください。',
-      audioUrl: '/audio/question3.mp3',
+      question: 'Đọc đoạn văn ngắn dưới đây và chọn thông tin đúng.',
+      prompt: 'Đoạn: "Năm ngoái, xuất khẩu tăng 10% và đóng góp tích cực cho tăng trưởng."',
       options: [
-        { id: 'a', text: 'ベトナムの経済について', isCorrect: true },
-        { id: 'b', text: 'ベトナムの文化について', isCorrect: false },
-        { id: 'c', text: 'ベトナムの歴史について', isCorrect: false },
-        { id: 'd', text: 'ベトナムの地理について', isCorrect: false },
+        { id: 'a', text: 'Về kinh tế của Việt Nam', isCorrect: true },
+        { id: 'b', text: 'Về văn hóa của Việt Nam', isCorrect: false },
+        { id: 'c', text: 'Về lịch sử của Việt Nam', isCorrect: false },
+        { id: 'd', text: 'Về địa lý của Việt Nam', isCorrect: false },
       ],
     },
     {
       id: 4,
-      question: '正しい発音を選んでください。',
-      audioUrl: '/audio/question4.mp3',
+      question: 'Chọn chữ kana/biểu diễn đúng cho từ được cho.',
+      prompt: 'Từ: "ま" — hãy chọn chữ kana/bảng biểu diễn phù hợp.',
       options: [
         { id: 'a', text: 'マー', isCorrect: false },
         { id: 'b', text: 'マ', isCorrect: true },
@@ -55,52 +55,52 @@ const mockTestData = {
     },
     {
       id: 5,
-      question: '次の会話の意味として最も適切なものを選んでください。',
-      audioUrl: '/audio/question5.mp3',
+      question: 'Đọc đoạn hội thoại ngắn và chọn ý nghĩa phù hợp nhất.',
+      prompt: 'Hội thoại: A: "Xin chào" B: "Xin chào" — Họ đang thực hiện hành động gì?',
       options: [
-        { id: 'a', text: '挨拶している', isCorrect: true },
-        { id: 'b', text: '別れを告げている', isCorrect: false },
-        { id: 'c', text: '感謝している', isCorrect: false },
-        { id: 'd', text: '謝罪している', isCorrect: false },
+        { id: 'a', text: 'Đang chào hỏi', isCorrect: true },
+        { id: 'b', text: 'Đang chia tay', isCorrect: false },
+        { id: 'c', text: 'Đang cảm ơn', isCorrect: false },
+        { id: 'd', text: 'Đang xin lỗi', isCorrect: false },
       ],
     },
     {
       id: 6,
-      question: 'この文の主語は何ですか？',
-      audioUrl: '/audio/question6.mp3',
+      question: 'Trong câu dưới đây, chủ ngữ là gì?',
+      prompt: 'Câu: "Tôi đã hoàn thành bài tập."',
       options: [
-        { id: 'a', text: '私', isCorrect: true },
-        { id: 'b', text: 'あなた', isCorrect: false },
-        { id: 'c', text: '彼', isCorrect: false },
-        { id: 'd', text: '誰か不明', isCorrect: false },
+        { id: 'a', text: 'Tôi', isCorrect: true },
+        { id: 'b', text: 'Bạn', isCorrect: false },
+        { id: 'c', text: 'Anh ấy', isCorrect: false },
+        { id: 'd', text: 'Không rõ', isCorrect: false },
       ],
     },
     {
       id: 7,
-      question: '正しい意味はどれですか？',
-      audioUrl: '/audio/question7.mp3',
+      question: 'Ý nghĩa chính xác của từ/đoạn này là gì?',
+      prompt: 'Câu: "Đó là một sản phẩm xấu." — Chọn nghĩa phù hợp cho từ "xấu".',
       options: [
-        { id: 'a', text: '良い', isCorrect: false },
-        { id: 'b', text: '悪い', isCorrect: true },
-        { id: 'c', text: '普通', isCorrect: false },
-        { id: 'd', text: '特別', isCorrect: false },
+        { id: 'a', text: 'Tốt', isCorrect: false },
+        { id: 'b', text: 'Xấu', isCorrect: true },
+        { id: 'c', text: 'Bình thường', isCorrect: false },
+        { id: 'd', text: 'Đặc biệt', isCorrect: false },
       ],
     },
     {
       id: 8,
-      question: '次の単語の反対語を選んでください。',
-      audioUrl: '/audio/question8.mp3',
+      question: 'Chọn từ trái nghĩa phù hợp cho từ đã cho.',
+      prompt: 'Từ được cho: "to". Chọn từ trái nghĩa phù hợp.',
       options: [
-        { id: 'a', text: '大きい', isCorrect: true },
-        { id: 'b', text: '新しい', isCorrect: false },
-        { id: 'c', text: '古い', isCorrect: false },
-        { id: 'd', text: '好き', isCorrect: false },
+        { id: 'a', text: 'To', isCorrect: true },
+        { id: 'b', text: 'Mới', isCorrect: false },
+        { id: 'c', text: 'Cũ', isCorrect: false },
+        { id: 'd', text: 'Thích', isCorrect: false },
       ],
     },
     {
       id: 9,
-      question: '文法として正しいものを選んでください。',
-      audioUrl: '/audio/question9.mp3',
+      question: 'Chọn cấu trúc ngữ pháp đúng để hoàn thành câu.',
+      prompt: 'Câu: "Cô ấy đang ăn." — Chọn cấu trúc phù hợp.',
       options: [
         { id: 'a', text: '〜ている', isCorrect: true },
         { id: 'b', text: '〜だ', isCorrect: false },
@@ -110,13 +110,13 @@ const mockTestData = {
     },
     {
       id: 10,
-      question: '最後の問題です。音声の内容について選んでください。',
-      audioUrl: '/audio/question10.mp3',
+      question: 'Câu cuối: Đọc đoạn ngắn và chọn đáp án phù hợp nhất.',
+      prompt: 'Đoạn: "Bài kiểm tra đã hoàn thành." — Chọn nội dung phù hợp nhất.',
       options: [
-        { id: 'a', text: 'テスト完了', isCorrect: true },
-        { id: 'b', text: 'テスト途中', isCorrect: false },
-        { id: 'c', text: 'テスト開始', isCorrect: false },
-        { id: 'd', text: 'テスト失敗', isCorrect: false },
+        { id: 'a', text: 'Hoàn thành bài kiểm tra', isCorrect: true },
+        { id: 'b', text: 'Đang làm bài', isCorrect: false },
+        { id: 'c', text: 'Bắt đầu bài kiểm tra', isCorrect: false },
+        { id: 'd', text: 'Bài kiểm tra không thành công', isCorrect: false },
       ],
     },
   ],
@@ -127,8 +127,7 @@ export default function LevelTest() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState<{ [key: number]: string | null }>({});
   const [timeLeft, setTimeLeft] = useState(mockTestData.timeLimit);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const audioRef = useRef<HTMLAudioElement>(null);
+  // audio controls removed; questions converted to text
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   // Timer effect
@@ -155,18 +154,12 @@ export default function LevelTest() {
     }));
   };
 
-  const handlePlayAudio = () => {
-    if (audioRef.current) {
-      setIsPlaying(true);
-      audioRef.current.play().catch(() => setIsPlaying(false));
-      audioRef.current.onended = () => setIsPlaying(false);
-    }
-  };
+  
 
   const handlePreviousQuestion = () => {
     if (currentQuestion === 0) {
       // If first question, go back to Level Assessment
-      if (window.confirm('テストを中断してレベル判定画面に戻りますか？')) {
+      if (window.confirm('Bạn có muốn dừng bài kiểm tra và về màn hình đánh giá trình độ không?')) {
         navigate('/home/levelassessment');
       }
     } else {
@@ -197,7 +190,7 @@ export default function LevelTest() {
     // Navigate to results page (or show results modal)
     const score = Math.round((correctCount / mockTestData.totalQuestions) * 100);
     // For now, just alert the score - you can create a results page later
-    alert(`テスト完了！\nスコア: ${score}%\n正解: ${correctCount}/${mockTestData.totalQuestions}`);
+    alert(`Bài kiểm tra hoàn tất!\nĐiểm: ${score}%\nĐúng: ${correctCount}/${mockTestData.totalQuestions}`);
     navigate('/home/levelassessment');
   };
 
@@ -213,15 +206,14 @@ export default function LevelTest() {
 
   return (
     <div className="level-test-container">
-      <audio ref={audioRef} src={currentQ.audioUrl} />
       
       {/* Main Content */}
       <div className="level-test-content">
         {/* Header */}
         <div className="level-test-header">
-          <h1 className="level-test-title">レベルテスト</h1>
+          <h1 className="level-test-title">{mockTestData.title}</h1>
           <div className="level-test-timer">
-            <span className="timer-label">残り時間</span>
+            <span className="timer-label">Thời gian còn lại</span>
             <span className={`timer-value ${timeLeft < 60 ? 'timer-critical' : ''}`}>
               {formatTime(timeLeft)}
             </span>
@@ -254,18 +246,11 @@ export default function LevelTest() {
             {currentQ.question}
           </p>
 
-          {/* Audio Play Button */}
-          <button 
-            onClick={handlePlayAudio}
-            className={`audio-button ${isPlaying ? 'playing' : ''}`}
-            disabled={isPlaying}
-            title="音声を再生する"
-          >
-            <Volume2 size={24} />
-            <span className="audio-button-label">
-              {isPlaying ? '再生中...' : '音声再生'}
-            </span>
-          </button>
+          {currentQ.prompt && (
+            <p className="question-prompt">{currentQ.prompt}</p>
+          )}
+
+          {/* Audio removed — questions shown as text */}
 
           {/* Answer Options */}
           <div className="answer-options">
@@ -285,22 +270,22 @@ export default function LevelTest() {
         </div>
 
         {/* Navigation Buttons */}
-        <div className="level-test-navigation">
+          <div className="level-test-navigation">
           <button 
             onClick={handlePreviousQuestion}
             className="btn-back"
-            title={currentQuestion === 0 ? 'テストを中断' : '前の問題へ'}
+            title={currentQuestion === 0 ? 'Dừng bài kiểm tra' : 'Câu trước'}
           >
-            戻る
+            Quay lại
           </button>
 
           <button 
             onClick={handleNextQuestion}
             className="btn-next"
             disabled={!selectedAnswer}
-            title={currentQuestion === mockTestData.totalQuestions - 1 ? 'テストを提出' : '次へ'}
+            title={currentQuestion === mockTestData.totalQuestions - 1 ? 'Nộp bài' : 'Tiếp theo'}
           >
-            {currentQuestion === mockTestData.totalQuestions - 1 ? '提出' : '次へ'}
+            {currentQuestion === mockTestData.totalQuestions - 1 ? 'Nộp bài' : 'Tiếp theo'}
           </button>
         </div>
       </div>
