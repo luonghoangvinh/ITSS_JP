@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 // simple animated bars implemented with state + CSS transitions (no framer-motion)
 import { Play, Mic, RotateCcw, Pause } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
-//import { fetchDefaultLesson, submitRecording, fetchStats } from "../../api/shadowing";
+//import { fetchDefaultLesson, submitRecording } from "../../api/shadowing";
 import SrtParser2 from 'srt-parser-2';
 import timeToSeconds from "../../utils/timeToSeconds";
 //import type { Lesson, Phrase } from "../../api/shadowing";
@@ -24,11 +24,11 @@ const ShadowingScreen = () => {
 
   const lessonId = location.state?.lessonId;
   const [speed, setSpeed] = useState<number>(1);
-  const [isPlaying, setIsPlaying] = useState<Boolean>(false);
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
-  const [subtitle, setSubtitle] = useState<any[]>([]);
+  const [subtitle, setSubtitle] = useState<Array<{ startTime: number; endTime: number; text: string }>>([]);
   const [currentSubtitle, setCurrentSubtitle] = useState('');
-  const [subtitleJP, setSubtitleJP] = useState<any[]>([]);
+  const [subtitleJP, setSubtitleJP] = useState<Array<{ startTime: number; endTime: number; text: string }>>([]);
   const [currentSubtitleJP, setCurrentSubtitleJP] = useState('');
 
   const API_BASE = import.meta.env.VITE_API_URL || '';
@@ -69,12 +69,12 @@ const ShadowingScreen = () => {
 
         const parsedJP = parser.fromSrt(srtTextJP);
 
-        const formatted = parsed.map((sub) => ({
+        const formatted = parsed.map((sub: any) => ({
           startTime: timeToSeconds(sub.startTime),
           endTime: timeToSeconds(sub.endTime),
           text: sub.text
         }))
-        const formattedJP = parsedJP.map((sub) => ({
+        const formattedJP = parsedJP.map((sub: any) => ({
           startTime: timeToSeconds(sub.startTime),
           endTime: timeToSeconds(sub.endTime),
           text: sub.text
@@ -91,18 +91,17 @@ const ShadowingScreen = () => {
   const handleTimeUpdate = () => {
     if (audioRef.current) {
       const current = audioRef.current.currentTime;
-      const preSubtitle=currentSubtitle;
+      const preSubtitle = currentSubtitle;
 
       const currentText = subtitle.find((sub) =>
         current >= sub.startTime && current <= sub.endTime
-      )
+      );
       const currentTextJP = subtitleJP.find((sub) =>
         current >= sub.startTime && current <= sub.endTime
       )
       if(currentText&&preSubtitle!=currentText.text) setCurrentIndex(currentIndex+1);
       setCurrentSubtitle(currentText?.text || "");
       setCurrentSubtitleJP(currentTextJP?.text || "");
-
     }
   };
 
@@ -162,8 +161,9 @@ const ShadowingScreen = () => {
     mr.onstop = async () => {
       //const blob = new Blob(recordedChunksRef.current, { type: 'audio/webm' });
       try {
-        console.log("try recording");
+        console.log("Recording finished");
         /*if (currentPhrase) {
+          const blob = new Blob(recordedChunksRef.current, { type: 'audio/webm' });
           const res = await submitRecording(currentPhrase.id, blob);
           setScore(res.score ?? null);
         }*/

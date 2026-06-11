@@ -1,4 +1,3 @@
-//import { use, useState } from "react";
 import type LevelSelectType from "../../types/LevelSelectType";
 import "./LevelSelectPage.css";
 import { Bell, CircleUserRound, Languages } from "lucide-react";

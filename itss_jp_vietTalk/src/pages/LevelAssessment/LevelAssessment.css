@@ -1,0 +1,55 @@
+.level-assessment-container{
+  min-height:100vh;
+  background-color:#FBF1F1;
+  color:#111827;
+}
+
+.level-assessment-content{
+  max-width:1120px;
+  margin:0 auto;
+  padding:24px 50px;
+  display:flex;
+  flex-direction:column;
+  gap:24px;
+}
+
+.la-title-section p{margin:0;font-size:14px;color:#B51621}
+.la-title-section h1{margin:0;font-size:36px;color:#B51621}
+.la-title-section{min-height:92px}
+
+.la-cards-grid{display:grid;grid-template-columns:1fr;gap:20px}
+@media(min-width:768px){.la-cards-grid{grid-template-columns:repeat(3,1fr)}}
+
+.la-speed-card{max-width:9999px; padding:10px; display:flex; flex-direction:column; justify-content:center}
+
+/* Center inner elements and ensure 10px gap from card edges */
+.la-speed-card .flex.items-center.justify-between{justify-content:space-between; gap:8px}
+.la-speed-card .justify-end{justify-content:center}
+.la-speed-card .text-[10px]{text-align:center}
+.la-speed-card .ticks{padding-left:6px;padding-right:6px}
+
+/* Custom range styling */
+.la-range{appearance:none;height:10px;background:transparent}
+.la-range:focus{outline:none}
+.la-range::-webkit-slider-runnable-track{height:10px;border-radius:999px;background:linear-gradient(90deg,#6b1e1e 0%, #c49a5b 50%, #eaeaea 100%)}
+.la-range::-webkit-slider-thumb{appearance:none;width:20px;height:20px;border-radius:50%;background:#7a2b2b;border:4px solid #fff;margin-top:-5px;box-shadow:0 2px 6px rgba(0,0,0,0.15)}
+.la-range::-moz-range-track{height:10px;border-radius:999px;background:linear-gradient(90deg,#6b1e1e 0%, #c49a5b 50%, #eaeaea 100%)}
+.la-range::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:#7a2b2b;border:4px solid #fff}
+
+.la-stats{display:flex;flex-direction:row;gap:12px;align-items:flex-start;justify-content:flex-end}
+.la-stat-card{width:160px}
+.la-progress-card{width:420px;background:linear-gradient(135deg,#6bb19f 0%,#2f7f6a 100%);padding:10px}
+
+.la-overall-percent{font-size:48px;line-height:1;color:#ffffff}
+.la-overall-caption{color:rgba(255,255,255,0.85);font-size:12px}
+.la-fill-yellow{background:linear-gradient(90deg,#f6d786,#eec86b)}
+.la-fill-white{background:rgba(255,255,255,0.9)}
+
+.la-list{background:white;border-radius:16px;padding:20px;border:1px solid #e6e6e6}
+
+.la-filter-btns{display:flex;gap:8px;flex-wrap:wrap}
+
+.la-item{display:flex;align-items:center;gap:12px;padding:12px;border-radius:12px;border:1px solid #f1f1f1;background:#fbfbfb}
+
+/* small utilities */
+.text-xs-muted{font-size:12px;color:#6b7280}

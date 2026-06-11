@@ -3,7 +3,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Search, Bell, Languages } from 'lucide-react';
 import './LessonChoose.css';
 
-//import type LessonByLevelType from '../../types/lessonByLevelType';
 import mapLesson from '../../utils/mapLesson';
 
 interface Lesson {

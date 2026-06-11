@@ -17,6 +17,7 @@ import { SearchHistoryModule } from './search_history/search-history.module';
 import { QuestionModule } from './question/question.module';
 import { ExamModule } from './exam/exam.module';
 import { AuthModule } from './auth/auth.module';
+import { LevelAssessmentModule } from './level-assessment/level-assessment.module';
 
 @Module({
   imports: [
@@ -63,7 +64,8 @@ import { AuthModule } from './auth/auth.module';
 
     ExamModule,
     
-    AuthModule
+    AuthModule,
+    LevelAssessmentModule,
   ],
   controllers: [AppController],
   providers: [AppService],

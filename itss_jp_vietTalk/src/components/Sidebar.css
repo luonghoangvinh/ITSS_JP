@@ -47,3 +47,31 @@
     background-color: #FFFFFF;
     border-radius: 10px;
 }
+
+.Sidebar ul li a.active {
+    background-color: #FFFFFF;
+    color: #B51621;
+    font-weight: 700;
+}
+
+.SidebarLogout {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.SidebarLogout a {
+    display: inline-block;
+    width: 100%;
+    padding: 12px 14px;
+    color: #B51621;
+    text-decoration: none;
+    border-radius: 12px;
+    background: rgba(181, 22, 33, 0.08);
+    font-weight: 700;
+}
+
+.SidebarLogout a:hover {
+    background: #B51621;
+    color: white;
+}
