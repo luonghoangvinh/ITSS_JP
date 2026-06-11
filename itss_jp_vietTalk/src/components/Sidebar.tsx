@@ -1,7 +1,6 @@
 import { NavLink, Link } from "react-router-dom";
 import "./Sidebar.css";
 import { BookOpen, GraduationCap, House, LogOut, Rows3, Settings } from "lucide-react";
-
 export function Sidebar() {
     return (
         <div className="Sidebar">

@@ -105,7 +105,7 @@ export default function LevelAssessment() {
 
         {/* Second row: audio speed (left) and progress summary (right) - equal height */}
         <div className="grid grid-cols-[1fr_auto] gap-5 items-stretch mt-3">
-          <div className="la-speed-card rounded-2xl bg-white border border-slate-200 p-5 shadow-sm h-full">
+          <div className="la-speed-card text-[10px] text-center rounded-2xl bg-white border border-slate-200 p-5 shadow-sm h-full">
               <div className="flex items-center justify-between mb-3">
                 <p className="text-base font-bold text-slate-800">音声スピード設定</p>
                 <span className="rounded-full bg-slate-100 px-3 py-1 text-[11px] font-semibold text-slate-500">Global control</span>

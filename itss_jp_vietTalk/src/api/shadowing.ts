@@ -12,16 +12,16 @@ export interface Lesson {
   phrases: Phrase[];
 }
 
-const API_BASE = import.meta.env.VITE_API_BASE || '';
+const API_BASE = import.meta.env.VITE_API_URL || '';
 
 export async function fetchLesson(lessonId: string): Promise<Lesson> {
-  const res = await fetch(`${API_BASE}/api/shadowing/lessons/${lessonId}`);
+  const res = await fetch(`${API_BASE}/shadowing/lessons/${lessonId}`);
   if (!res.ok) throw new Error('Failed to fetch lesson');
   return res.json();
 }
 
 export async function fetchDefaultLesson(): Promise<Lesson> {
-  const res = await fetch(`${API_BASE}/api/shadowing/lessons/default`);
+  const res = await fetch(`${API_BASE}/shadowing/lessons/default`);
   if (!res.ok) throw new Error('Failed to fetch default lesson');
   return res.json();
 }
@@ -31,7 +31,7 @@ export async function submitRecording(phraseId: string, blob: Blob): Promise<{ s
   fd.append('phraseId', phraseId);
   fd.append('file', blob, 'recording.webm');
 
-  const res = await fetch(`${API_BASE}/api/shadowing/recordings`, {
+  const res = await fetch(`${API_BASE}/shadowing/recordings`, {
     method: 'POST',
     body: fd,
   });
@@ -41,7 +41,7 @@ export async function submitRecording(phraseId: string, blob: Blob): Promise<{ s
 }
 
 export async function fetchStats(lessonId: string): Promise<any> {
-  const res = await fetch(`${API_BASE}/api/shadowing/lessons/${lessonId}/stats`);
+  const res = await fetch(`${API_BASE}/shadowing/lessons/${lessonId}/stats`);
   if (!res.ok) throw new Error('Failed to fetch stats');
   return res.json();
 }

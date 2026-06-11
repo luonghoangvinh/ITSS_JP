@@ -12,7 +12,7 @@ export function SignUp() {
     password: '',
     confirmPassword: '',
   });
-
+  const API_BASE = import.meta.env.VITE_API_URL || '';
   const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,7 +32,7 @@ export function SignUp() {
     }
 
     try {
-      const response = await fetch('/api/auth/signup', {
+      const response = await fetch(`${API_BASE}/auth/signup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
