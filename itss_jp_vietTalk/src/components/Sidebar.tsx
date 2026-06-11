@@ -7,9 +7,12 @@ export function Sidebar() {
             <nav>
                 <Link id="Logo" to="/">VietTalk</Link>
                 <p id="LogoText">ベトナム語を学ぶ</p>
-                <ul>
+                <ul >
                     <li>
-                        <NavLink to="/home" className={({ isActive }) => `gap-1.5 ${isActive ? "active" : ""}`}>
+                        <NavLink to="/home" end
+                            className={({ isActive }) =>
+                                `gap-1.5 ${isActive ? "active" : ""}`
+                            }>
                             <span className="mt-1"><House size={20} /></span>
                             <span className="pt-1.5">ホーム</span>
                         </NavLink>
@@ -51,8 +54,8 @@ export function Sidebar() {
                         </NavLink>
                     </li>*/}
 
-                    <Link 
-                        to="/login" 
+                    <Link
+                        to="/login"
                         className="cursor-pointer flex absolute bottom-4"
                         onClick={() => {
                             localStorage.removeItem('access_token');
