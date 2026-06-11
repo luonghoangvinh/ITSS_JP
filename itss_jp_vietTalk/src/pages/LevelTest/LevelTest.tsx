@@ -635,7 +635,7 @@ export default function LevelTest() {
   const handlePreviousQuestion = () => {
     if (currentQuestion === 0) {
       // If first question, go back to Level Assessment
-      if (window.confirm('Bạn có muốn dừng bài kiểm tra và quay về trang đánh giá trình độ không?')) {
+      if (window.confirm('テストを終了して、レベルチェックのページに戻りますか。')) {
         navigate('/home/levelassessment');
       }
     } else {
@@ -719,7 +719,7 @@ export default function LevelTest() {
         <div className="level-test-question-section">
           {/* Question Header */}
           <div className="question-header">
-            <span className="question-number">Câu {currentQuestion + 1}</span>
+            <span className="question-number">問題 {currentQuestion + 1}</span>
             <p className="question-instruction">
               {currentQ?.question || '質問が読み込まれていません。'}
             </p>
@@ -730,7 +730,7 @@ export default function LevelTest() {
                 onClick={handlePlayAudio}
                 disabled={isPlaying}
               >
-                {isPlaying ? 'Đang phát...' : 'Nghe'}
+                {isPlaying ? '再生中…' : '聞く'}
               </button>
             )}
           </div>
@@ -757,7 +757,7 @@ export default function LevelTest() {
           <button 
             onClick={handlePreviousQuestion}
             className="btn-back"
-            title={currentQuestion === 0 ? 'Dừng bài kiểm tra' : 'Câu trước'}
+            title={currentQuestion === 0 ? 'テスト終了' : '前の問題'}
           >
             Quay lại
           </button>
@@ -766,9 +766,9 @@ export default function LevelTest() {
             onClick={handleNextQuestion}
             className="btn-next"
             disabled={!selectedAnswer}
-            title={currentQuestion === mockTestData.totalQuestions - 1 ? 'Nộp bài' : 'Tiếp theo'}
+            title={currentQuestion === mockTestData.totalQuestions - 1 ? '提出' : '次へ'}
           >
-            {currentQuestion === mockTestData.totalQuestions - 1 ? 'Nộp bài' : 'Tiếp theo'}
+            {currentQuestion === mockTestData.totalQuestions - 1 ? '提出' : '次へ'}
           </button>
         </div>
       </div>
