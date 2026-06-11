@@ -58,13 +58,13 @@ function progressBarClass(status: string) {
 function getButtonProps(status: string) {
   switch (status) {
     case 'completed':
-      return { label: 'テストを受ける', color: 'bg-[#0f6e56]' };
+      return { label: 'テストを開始', color: 'bg-[#0f6e56]' };
     case 'inProgress':
-      return { label: '学習を続ける', color: 'bg-amber-500' };
+      return { label: '学習を開始', color: 'bg-amber-500' };
     case 'needsReview':
       return { label: '復習する', color: 'bg-rose-500' };
     default:
-      return { label: 'テストを受ける', color: 'bg-slate-400' };
+      return { label: 'テストを開始', color: 'bg-slate-400' };
   }
 }
 
