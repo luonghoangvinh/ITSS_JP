@@ -1,6 +1,12 @@
 import { useState, useEffect, useMemo, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import './LevelTest.css';
+import speech18 from '../../assets/audio/speech (18).mp3';
+import speech19 from '../../assets/audio/speech (19).mp3';
+import speech20 from '../../assets/audio/speech (20).mp3';
+import speech21 from '../../assets/audio/speech (21).mp3';
+import speech22 from '../../assets/audio/speech (22).mp3';
+import speech23 from '../../assets/audio/speech (23).mp3';
 
 interface QuestionOption {
   id: string;
@@ -11,6 +17,7 @@ interface QuestionOption {
 interface TestQuestion {
   id: number;
   question: string;
+  audioUrl?: string;
   options: QuestionOption[];
 }
 
@@ -290,23 +297,23 @@ const topicQuestionBanks: Record<string, TopicTestData> = {
     totalQuestions: 3,
     timeLimit: 600,
     questions: [
-      { id: 1, question: 'Từ nào liên quan đến phát triển bền vững?', options: [
-        { id: 'a', text: 'Năng lượng tái tạo', isCorrect: true },
-        { id: 'b', text: 'Giải trí', isCorrect: false },
-        { id: 'c', text: 'Thèm ăn', isCorrect: false },
-        { id: 'd', text: 'Ngủ', isCorrect: false },
+      { id: 1, question: 'Từ nào liên quan đến phát triển bền vững?', audioUrl: speech21, options: [
+        { id: 'a', text: ' ', isCorrect: true },
+        { id: 'b', text: ' ', isCorrect: false },
+        { id: 'c', text: ' ', isCorrect: false },
+        { id: 'd', text: ' ', isCorrect: false },
       ]},
-      { id: 2, question: 'Mục đích của tái chế là gì?', options: [
-        { id: 'a', text: 'Tận dụng nguồn lực hiệu quả', isCorrect: true },
-        { id: 'b', text: 'Vứt bỏ nhiều hơn', isCorrect: false },
-        { id: 'c', text: 'Tăng ô nhiễm', isCorrect: false },
-        { id: 'd', text: 'Phá sản phẩm', isCorrect: false },
+      { id: 2, question: 'Mục đích của tái chế là gì?', audioUrl: speech22, options: [
+        { id: 'a', text: ' ', isCorrect: true },
+        { id: 'b', text: ' ', isCorrect: false },
+        { id: 'c', text: ' ', isCorrect: false },
+        { id: 'd', text: ' ', isCorrect: false },
       ]},
-      { id: 3, question: 'Cá nhân có thể làm gì để bảo vệ môi trường?', options: [
-        { id: 'a', text: 'Phân loại rác', isCorrect: true },
-        { id: 'b', text: 'Lãng phí nước', isCorrect: false },
-        { id: 'c', text: 'Không tắt điện', isCorrect: false },
-        { id: 'd', text: 'Đi xe hơi mọi lúc', isCorrect: false },
+      { id: 3, question: 'Cá nhân có thể làm gì để bảo vệ môi trường?', audioUrl: speech23, options: [
+        { id: 'a', text: ' ', isCorrect: true },
+        { id: 'b', text: ' ', isCorrect: false },
+        { id: 'c', text: ' ', isCorrect: false },
+        { id: 'd', text: ' ', isCorrect: false },
       ]},
     ],
   },
@@ -415,23 +422,23 @@ const topicQuestionBanks: Record<string, TopicTestData> = {
     totalQuestions: 3,
     timeLimit: 600,
     questions: [
-      { id: 1, question: 'Câu nào phù hợp khi gọi món?', options: [
-        { id: 'a', text: 'Cho tôi xem menu.', isCorrect: true },
-        { id: 'b', text: 'Tôi sẽ ngủ ở đây.', isCorrect: false },
-        { id: 'c', text: 'Xin hãy phá cái này.', isCorrect: false },
-        { id: 'd', text: 'Đi ra kia đi.', isCorrect: false },
+      { id: 1, question: 'Câu nào phù hợp khi gọi món?', audioUrl: speech18, options: [
+        { id: 'a', text: ' ', isCorrect: true },
+        { id: 'b', text: ' ', isCorrect: false },
+        { id: 'c', text: ' ', isCorrect: false },
+        { id: 'd', text: ' ', isCorrect: false },
       ]},
-      { id: 2, question: 'Câu nào dùng để hỏi gợi ý đồ uống?', options: [
-        { id: 'a', text: 'Bạn gợi ý gì?', isCorrect: true },
-        { id: 'b', text: 'Nhanh lên.', isCorrect: false },
-        { id: 'c', text: 'Không ngon.', isCorrect: false },
-        { id: 'd', text: 'Tôi về rồi.', isCorrect: false },
+      { id: 2, question: 'Câu nào dùng để hỏi gợi ý đồ uống?', audioUrl: speech19, options: [
+        { id: 'a', text: ' ', isCorrect: true },
+        { id: 'b', text: ' ', isCorrect: false },
+        { id: 'c', text: ' ', isCorrect: false },
+        { id: 'd', text: ' ', isCorrect: false },
       ]},
-      { id: 3, question: 'Câu nào dùng khi thanh toán?', options: [
-        { id: 'a', text: 'Xin tính tiền giúp tôi.', isCorrect: true },
-        { id: 'b', text: 'Tôi ngủ ở đây.', isCorrect: false },
-        { id: 'c', text: 'Tôi nấu ăn.', isCorrect: false },
-        { id: 'd', text: 'Dọn bàn giúp tôi.', isCorrect: false },
+      { id: 3, question: 'Câu nào dùng khi thanh toán?', audioUrl: speech20, options: [
+        { id: 'a', text: ' ', isCorrect: true },
+        { id: 'b', text: ' ', isCorrect: false },
+        { id: 'c', text: ' ', isCorrect: false },
+        { id: 'd', text: ' ', isCorrect: false },
       ]},
     ],
   },
@@ -572,6 +579,8 @@ export default function LevelTest() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState<{ [key: number]: string | null }>({});
   const [timeLeft, setTimeLeft] = useState(mockTestData.timeLimit);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
@@ -597,11 +606,30 @@ export default function LevelTest() {
     };
   }, []);
 
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+      setIsPlaying(false);
+    }
+  }, [currentQuestion]);
+
   const handleSelectAnswer = (optionId: string) => {
     setSelectedAnswers(prev => ({
       ...prev,
       [currentQuestion]: optionId,
     }));
+  };
+
+  const handlePlayAudio = () => {
+    if (!currentQ?.audioUrl || !audioRef.current) return;
+
+    setIsPlaying(true);
+    audioRef.current.currentTime = 0;
+    audioRef.current.play().catch(() => {
+      setIsPlaying(false);
+    });
+    audioRef.current.onended = () => setIsPlaying(false);
   };
 
   const handlePreviousQuestion = () => {
@@ -654,6 +682,7 @@ export default function LevelTest() {
 
   return (
     <div className="level-test-container">
+      <audio ref={audioRef} src={currentQ.audioUrl} />
       {/* Main Content */}
       <div className="level-test-content">
         {/* Header */}
@@ -694,6 +723,16 @@ export default function LevelTest() {
             <p className="question-instruction">
               {currentQ?.question || '質問が読み込まれていません。'}
             </p>
+            {currentQ?.audioUrl && (
+              <button
+                type="button"
+                className={`audio-button ${isPlaying ? 'playing' : ''}`}
+                onClick={handlePlayAudio}
+                disabled={isPlaying}
+              >
+                {isPlaying ? 'Đang phát...' : 'Nghe'}
+              </button>
+            )}
           </div>
 
           {/* Answer Options */}
