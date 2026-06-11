@@ -129,7 +129,7 @@ export default function LevelTest() {
   const [timeLeft, setTimeLeft] = useState(mockTestData.timeLimit);
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Timer effect
   useEffect(() => {

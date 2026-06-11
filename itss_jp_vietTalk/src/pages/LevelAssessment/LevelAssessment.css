@@ -25,7 +25,7 @@
 /* Center inner elements and ensure 10px gap from card edges */
 .la-speed-card .flex.items-center.justify-between{justify-content:space-between; gap:8px}
 .la-speed-card .justify-end{justify-content:center}
-.la-speed-card .text-[10px]{text-align:center}
+.la-speed-card .text-10px{text-align:center}
 .la-speed-card .ticks{padding-left:6px;padding-right:6px}
 
 /* Custom range styling */
