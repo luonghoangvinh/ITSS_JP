@@ -759,7 +759,7 @@ export default function LevelTest() {
             className="btn-back"
             title={currentQuestion === 0 ? 'テスト終了' : '前の問題'}
           >
-            Quay lại
+            戻る
           </button>
 
           <button 
