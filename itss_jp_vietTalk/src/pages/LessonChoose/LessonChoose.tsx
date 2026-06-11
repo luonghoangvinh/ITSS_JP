@@ -108,10 +108,10 @@ export function LessonChoose() {
     navigate('/home/shadowing', { state: { lessonId } });
   };
 
-  const handleTopicTestClick = (lessonName: string) => {
+  /*const handleTopicTestClick = (lessonName: string) => {
     const encoded = encodeURIComponent(lessonName || '総合');
     navigate(`/home/leveltest/${encoded}`);
-  };
+  };*/
   return (
     <div className="lesson-choose-container">
       {/* Top Header Bar with Search, Notification, and Settings */}
