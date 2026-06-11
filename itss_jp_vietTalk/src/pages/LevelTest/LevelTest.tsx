@@ -688,9 +688,7 @@ export default function LevelTest() {
         {/* Header */}
         <div className="level-test-header">
           <h1 className="level-test-title">{mockTestData.title}</h1>
-          <h1 className="level-test-title">{mockTestData.title}</h1>
           <div className="level-test-timer">
-            <span className="timer-label">Thời gian còn lại</span>
             <span className="timer-label">Thời gian còn lại</span>
             <span className={`timer-value ${timeLeft < 60 ? 'timer-critical' : ''}`}>
               {formatTime(timeLeft)}
