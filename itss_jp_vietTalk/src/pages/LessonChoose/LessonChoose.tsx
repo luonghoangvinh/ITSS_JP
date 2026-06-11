@@ -38,7 +38,7 @@ export function LessonChoose() {
     const fetchLessons = async () => {
       try {
         setIsLoading(true);
-        const url = urlLevel ? `${API_BASE}/lessons/level/${urlLevel}` : '/api/lessons';
+        const url = urlLevel ? `${API_BASE}/lessons/level/${urlLevel}` : '';
         const res = await fetch(url);
 
         if (!res.ok) {
@@ -190,12 +190,6 @@ export function LessonChoose() {
 
                 {/* Action Buttons */}
                 <div className="lesson-buttons">
-                  <button
-                    className="btn-test"
-                    onClick={() => handleTopicTestClick(lesson.lessonName)}
-                  >
-                    テスト
-                  </button>
                   <button
                     className="btn-listening"
                     onClick={() => handleListeningClick(lesson.id)}

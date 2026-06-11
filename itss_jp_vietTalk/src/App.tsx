@@ -26,11 +26,10 @@ function App() {
 
           <Route path="/home" element={<Mainlayout />}>
             <Route index element={<HomeScreen/>} />
-            <Route path="levelselect" element={<LevelSelectPage />} />
+            <Route path="lessons" element={<LevelSelectPage />} />
             <Route path="dictionary" element={<DictionaryScreen />} />
             <Route path="settings" element={<Settings />} />
             <Route path="shadowing" element={<ShadowingScreen />} />
-            <Route path="lessons" element={<LessonChoose />} />
             <Route path="lessons/:urlLevel" element={<LessonChoose />} />
             <Route path="listening" element={<Listening />} />
             <Route path="levelassessment" element={<LevelAssessment />} />
