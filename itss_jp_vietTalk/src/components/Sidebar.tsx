@@ -1,7 +1,6 @@
-import { Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import "./Sidebar.css";
 import { BookOpen, GraduationCap, House, LogOut, Rows3, Settings } from "lucide-react";
-//import { div } from "framer-motion/client";
 export function Sidebar() {
     return (
         <div className="Sidebar">
@@ -10,39 +9,46 @@ export function Sidebar() {
                 <p id="LogoText">ベトナム語を学ぶ</p>
                 <ul>
                     <li>
-                        <Link to="/home" className="gap-1.5">
-                            <span className="mt-1">{<House size={20} />}</span>
+                        <NavLink to="/home" className={({ isActive }) => `gap-1.5 ${isActive ? "active" : ""}`}>
+                            <span className="mt-1"><House size={20} /></span>
                             <span className="pt-1.5">ホーム</span>
-                        </Link>
+                        </NavLink>
                     </li>
-                    <li >
-
-                        <Link to="/home/dictionary" className="gap-1.5">
-                            <span className="mt-1">{<BookOpen size={20} />}</span>
-
+                    <li>
+                        <NavLink to="/home/dictionary" className={({ isActive }) => `gap-1.5 ${isActive ? "active" : ""}`}>
+                            <span className="mt-1"><BookOpen size={20} /></span>
                             <span className="ml-1.5">辞書</span>
-                        </Link>
+                        </NavLink>
                     </li>
-
                     <li>
-
-                        <Link to="/home/levelselect" className="gap-1.5">
-                            <span className="mt-1">{<GraduationCap size={20} />}</span>
-
+                        <NavLink to="/home/levelselect" className={({ isActive }) => `gap-1.5 ${isActive ? "active" : ""}`}>
+                            <span className="mt-1"><GraduationCap size={20} /></span>
                             <span className="ml-1.5">レッスン</span>
-                        </Link>
+                        </NavLink>
                     </li>
                     <li>
-                        <Link to="/home/settings" className="gap-1.5">
-                            <span className="mt-1">{<Settings size={20} />}</span>
+                        <NavLink to="/home/settings" className={({ isActive }) => `gap-1.5 ${isActive ? "active" : ""}`}>
+                            <span className="mt-1"><Settings size={20} /></span>
                             <span className="ml-1.5">設定</span>
-                        </Link>
+                        </NavLink>
                     </li>
                     <li>
-                        <Link to="/home/levelselect" className="gap-1.5">
-                            <span className="mt-1">{<Rows3 size={20} />}</span>
+                        <NavLink to="/home/levelselect" className={({ isActive }) => `gap-1.5 ${isActive ? "active" : ""}`}>
+                            <span className="mt-1"><Rows3 size={20} /></span>
+                            <span className="ml-1.5">レベル選択</span>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/home/levelassessment" className={({ isActive }) => `gap-1.5 ${isActive ? "active" : ""}`}>
+                            <span className="mt-1"><Rows3 size={20} /></span>
                             <span className="ml-1.5">レベル判定</span>
-                        </Link>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/home/leveltest" className={({ isActive }) => `gap-1.5 ${isActive ? "active" : ""}`}>
+                            <span className="mt-1"><BookOpen size={20} /></span>
+                            <span className="ml-1.5">レベルテスト</span>
+                        </NavLink>
                     </li>
 
                     <Link 
@@ -58,7 +64,6 @@ export function Sidebar() {
                     </Link>
                 </ul>
             </nav>
-
         </div>
-    )
+    );
 }
