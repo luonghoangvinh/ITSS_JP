@@ -1,16 +1,18 @@
 import { NavLink, Link } from "react-router-dom";
 import "./Sidebar.css";
 import { BookOpen, GraduationCap, House, LogOut, Rows3, Settings } from "lucide-react";
-
 export function Sidebar() {
     return (
         <div className="Sidebar">
             <nav>
                 <Link id="Logo" to="/">VietTalk</Link>
                 <p id="LogoText">ベトナム語を学ぶ</p>
-                <ul>
+                <ul >
                     <li>
-                        <NavLink to="/home" className={({ isActive }) => `gap-1.5 ${isActive ? "active" : ""}`}>
+                        <NavLink to="/home" end
+                            className={({ isActive }) =>
+                                `gap-1.5 ${isActive ? "active" : ""}`
+                            }>
                             <span className="mt-1"><House size={20} /></span>
                             <span className="pt-1.5">ホーム</span>
                         </NavLink>
@@ -33,27 +35,27 @@ export function Sidebar() {
                             <span className="ml-1.5">設定</span>
                         </NavLink>
                     </li>
-                    <li>
+                    {/*<li>
                         <NavLink to="/home/levelselect" className={({ isActive }) => `gap-1.5 ${isActive ? "active" : ""}`}>
                             <span className="mt-1"><Rows3 size={20} /></span>
                             <span className="ml-1.5">レベル選択</span>
                         </NavLink>
-                    </li>
+                    </li>*/}
                     <li>
                         <NavLink to="/home/levelassessment" className={({ isActive }) => `gap-1.5 ${isActive ? "active" : ""}`}>
                             <span className="mt-1"><Rows3 size={20} /></span>
                             <span className="ml-1.5">レベル判定</span>
                         </NavLink>
                     </li>
-                    <li>
+                    {/*<li>
                         <NavLink to="/home/leveltest" className={({ isActive }) => `gap-1.5 ${isActive ? "active" : ""}`}>
                             <span className="mt-1"><BookOpen size={20} /></span>
                             <span className="ml-1.5">レベルテスト</span>
                         </NavLink>
-                    </li>
+                    </li>*/}
 
-                    <Link 
-                        to="/login" 
+                    <Link
+                        to="/login"
                         className="cursor-pointer flex absolute bottom-4"
                         onClick={() => {
                             localStorage.removeItem('access_token');

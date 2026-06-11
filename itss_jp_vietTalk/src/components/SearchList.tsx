@@ -11,7 +11,7 @@ type SearchListProps = {
 function SearchList({ setSearchState }: SearchListProps) {
     const [search, setSearch] = useState<string>("");
     const [selectedEntry, setSelectedEntry] = useState<TranslateType | null>(null);
-    const [, setResult] = useState("");
+    //const [result, setResult] = useState("");
     const [entries, setEntries] = useState<TranslateType[]>([
         { vn: "Xin chào", jp: "こんにちは" },
         { vn: "Cảm ơn", jp: "ありがとう" },
@@ -35,7 +35,7 @@ function SearchList({ setSearchState }: SearchListProps) {
 
             const data = await res.json();
 
-            setResult(data.responseData.translatedText);
+            //setResult(data.responseData.translatedText);
             setEntries([{ vn: text, jp: data.responseData.translatedText },...entries ]);
             setSearchState({ vn: text, jp: data.responseData.translatedText });
         } catch (err) {

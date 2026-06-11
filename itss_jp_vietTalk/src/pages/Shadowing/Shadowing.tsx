@@ -30,6 +30,8 @@ const ShadowingScreen = () => {
   const [currentSubtitle, setCurrentSubtitle] = useState('');
   const [subtitleJP, setSubtitleJP] = useState<Array<{ startTime: number; endTime: number; text: string }>>([]);
   const [currentSubtitleJP, setCurrentSubtitleJP] = useState('');
+
+  const API_BASE = import.meta.env.VITE_API_URL || '';
   /*useEffect(() => {
     // load default lesson
     fetchDefaultLesson().then(l => setLesson(l)).catch(() => {
@@ -43,7 +45,7 @@ const ShadowingScreen = () => {
   }, []);*/
   useEffect(() => {
     if (lessonId) {
-      fetch(`/api/lessons/${lessonId}`)
+      fetch(`${API_BASE}/lessons/${lessonId}`)
         .then(res => res.json())
         .then(data => {
           setLesson(data);
@@ -96,12 +98,8 @@ const ShadowingScreen = () => {
       );
       const currentTextJP = subtitleJP.find((sub) =>
         current >= sub.startTime && current <= sub.endTime
-      );
-
-      if (currentText && preSubtitle !== currentText.text) {
-        setCurrentIndex(i => i + 1);
-      }
-
+      )
+      if(currentText&&preSubtitle!=currentText.text) setCurrentIndex(currentIndex+1);
       setCurrentSubtitle(currentText?.text || "");
       setCurrentSubtitleJP(currentTextJP?.text || "");
     }
@@ -151,7 +149,8 @@ const ShadowingScreen = () => {
     }
   };*/
 
-  const handleNext = () => setCurrentIndex(i => Math.min((subtitle.length ?? 1) - 1, i + 1));
+  const handleNext = () => setCurrentIndex(i => Math.min((subtitle?.length ?? 1) - 1, i + 1));
+  //const handlePrev = () => setCurrentIndex(i => Math.max(0, i - 1));
 
   const startRecording = async () => {
     if (!navigator.mediaDevices) return alert('Recording not supported');
@@ -160,6 +159,7 @@ const ShadowingScreen = () => {
     recordedChunksRef.current = [];
     mr.ondataavailable = (e) => { if (e.data.size) recordedChunksRef.current.push(e.data); };
     mr.onstop = async () => {
+      //const blob = new Blob(recordedChunksRef.current, { type: 'audio/webm' });
       try {
         console.log("Recording finished");
         /*if (currentPhrase) {

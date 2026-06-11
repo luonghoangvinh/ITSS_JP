@@ -33,11 +33,12 @@ export function LessonChoose() {
   const navigate = useNavigate();
   const { urlLevel } = useParams();
 
+  const API_BASE = import.meta.env.VITE_API_URL || '';
   useEffect(() => {
     const fetchLessons = async () => {
       try {
         setIsLoading(true);
-        const url = urlLevel ? `/api/lessons/level/${urlLevel}` : '/api/lessons';
+        const url = urlLevel ? `${API_BASE}/lessons/level/${urlLevel}` : '/api/lessons';
         const res = await fetch(url);
 
         if (!res.ok) {

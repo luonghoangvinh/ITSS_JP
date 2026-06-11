@@ -36,7 +36,7 @@
 }
 .Sidebar ul li{
     display: flex;
-    
+    margin-bottom: 10px;
     flex-direction: row;
     width: 100%;
 }
@@ -52,6 +52,7 @@
     background-color: #FFFFFF;
     color: #B51621;
     font-weight: 700;
+    border-radius: 12px;
 }
 
 .SidebarLogout {

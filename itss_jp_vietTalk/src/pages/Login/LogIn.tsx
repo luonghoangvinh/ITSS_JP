@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Lock, User } from 'lucide-react';
-import './Login.css';
+import './LogIn.css';
 import vietTalkLogoImage from '../../assets/Viettalkpic.jpg';
 
 export function Login() {
@@ -11,7 +11,7 @@ export function Login() {
   });
 
   const navigate = useNavigate();
-
+  const API_BASE = import.meta.env.VITE_API_URL || '';
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -27,7 +27,7 @@ export function Login() {
 
   try {
     const response = await fetch(
-      '/api/auth/login',
+      `${API_BASE}/auth/login`,
       {
         method: 'POST',
 

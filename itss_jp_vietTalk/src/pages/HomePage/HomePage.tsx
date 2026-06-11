@@ -1,14 +1,14 @@
-import React from 'react';
+//import React from 'react';
 import { motion } from "framer-motion";
 import {
     Search, Bell, Languages, UserCircle, Flame,
     ArrowRight, Volume2, ChevronRight
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-
-interface HomeScreenProps {
+import conicalHat from '../../assets/Dragon-Conical-Hat-1-600x600.jpg';
+/*interface HomeScreenProps {
     onGoToLesson: () => void;
-}
+}*/
 
 function HomeScreen() {
     const navigate = useNavigate();
@@ -76,7 +76,7 @@ function HomeScreen() {
             {/* Hero Conical Hat Artwork */}
             <div className="relative w-80 h-80 rounded-[2.5rem] overflow-hidden shadow-2xl shrink-0 border-4 border-white transform rotate-3 hover:rotate-0 transition-transform duration-500">
                 <img
-                    src="/src/assets/Dragon-Conical-Hat-1-600x600.jpg"
+                    src={conicalHat}
                     alt="Conical Hat Painting"
                     className="w-full h-full object-cover"
                 />
