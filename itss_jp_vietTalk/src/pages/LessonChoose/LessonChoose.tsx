@@ -33,6 +33,10 @@ export function LessonChoose() {
   const navigate = useNavigate();
   const { urlLevel } = useParams();
 
+  const handleTopicTestClick = (lessonName: string) => {
+    navigate(`/home/leveltest/${encodeURIComponent(lessonName)}`);
+  };
+
   const API_BASE = import.meta.env.VITE_API_URL || '';
   useEffect(() => {
     const fetchLessons = async () => {
@@ -201,6 +205,15 @@ export function LessonChoose() {
                     onClick={() => handleShadowingClick(lesson.id)}
                   >
                     シャドウイング
+                  </button>
+                  <button
+                    className="btn-topic-test"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleTopicTestClick(lesson.lessonName);
+                    }}
+                  >
+                    テスト
                   </button>
                 </div>
               </div>

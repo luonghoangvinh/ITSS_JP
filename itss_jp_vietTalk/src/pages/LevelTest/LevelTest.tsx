@@ -688,7 +688,9 @@ export default function LevelTest() {
         {/* Header */}
         <div className="level-test-header">
           <h1 className="level-test-title">{mockTestData.title}</h1>
+          <h1 className="level-test-title">{mockTestData.title}</h1>
           <div className="level-test-timer">
+            <span className="timer-label">Thời gian còn lại</span>
             <span className="timer-label">Thời gian còn lại</span>
             <span className={`timer-value ${timeLeft < 60 ? 'timer-critical' : ''}`}>
               {formatTime(timeLeft)}
@@ -753,13 +755,13 @@ export default function LevelTest() {
         </div>
 
         {/* Navigation Buttons */}
-        <div className="level-test-navigation">
+          <div className="level-test-navigation">
           <button 
             onClick={handlePreviousQuestion}
             className="btn-back"
             title={currentQuestion === 0 ? 'テスト終了' : '前の問題'}
           >
-            戻る
+            Quay lại
           </button>
 
           <button 
@@ -768,7 +770,7 @@ export default function LevelTest() {
             disabled={!selectedAnswer}
             title={currentQuestion === mockTestData.totalQuestions - 1 ? '提出' : '次へ'}
           >
-            {currentQuestion === mockTestData.totalQuestions - 1 ? '提出' : '次へ'}
+            {currentQuestion === mockTestData.totalQuestions - 1 ? 'Nộp bài' : 'Tiếp theo'}
           </button>
         </div>
       </div>
